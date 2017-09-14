@@ -15,7 +15,7 @@ The project aims creation of universal online testing service focused mainly on 
 
 * Когда вы будете полностью готовы влиться в разработку, то можете выбрать любую интересную для себя задачу исходя из текущего этапа [в этом разделе](https://github.com/geektesting/testing/milestones) или посмотреть все открытые актуальные задачи [на этой доске](https://github.com/geektesting/testing/projects/1).
 
-* Если вы нашли баг или решили, что что-то не хватает, вы можете [создать новую задачу](https://github.com/geektesting/testing/issues)
+* Если вы нашли баг или решили, что что-то не хватает, вы можете [создать новую задачу](https://github.com/geektesting/testing/issues).
 
 ## Установка
 
@@ -41,4 +41,9 @@ make install
 make test
 ```
 
-Для просмотра полной инструкции по установке [пройдите сюда](https://github.com/geektesting/testing/wiki/Инструкция-по-установке-и-тестированию)
+5. Для синхронизации с основным репозиторием введите:
+```
+make get-last-changes
+```
+
+Для просмотра полной инструкции по установке [пройдите сюда](https://github.com/geektesting/testing/wiki/Инструкция-по-установке-и-тестированию).
