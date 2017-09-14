@@ -4,6 +4,9 @@ install:
 test: 
 	phpunit tests/mytestsuite.php
 
+lint:
+	./vendor/bin/phpcs ./ --ignore=vendor/ --extensions=php --colors --standard=PSR1 -v
+
 remote-upstream:
 	git remote add upstream https://github.com/geektesting/testing.git
 	git remote -v
