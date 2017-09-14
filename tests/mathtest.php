@@ -1,4 +1,5 @@
 <?php
+namespace tests;
 
 class MathTest extends \PHPUnit\Framework\TestCase
 {
