@@ -5,7 +5,7 @@ test:
 	phpunit tests/mytestsuite.php
 
 remote-upstream:
-	git remote add upstream git@github.com:geektesting/testing.git
+	git remote add upstream https://github.com/geektesting/testing.git
 	git remote -v
 
 get-last-changes:
