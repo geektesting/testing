@@ -7,8 +7,7 @@
  */
 
 namespace core;
-
-use controllers;
+use core\controllers\MainController;
 
 /**
  * Class App
@@ -24,7 +23,7 @@ class App
     public function run(): void
     {
         // Вызываем тестовый метод actionIndex класса MainController
-        $m = new controllers\MainController();
+        $m = new MainController();
         $m->actionIndex();
     }
 }

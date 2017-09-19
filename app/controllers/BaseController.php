@@ -6,8 +6,7 @@
  * Time: 2:23
  */
 
-namespace controllers;
-
+namespace core\controllers;
 
 /**
  * Class BaseController

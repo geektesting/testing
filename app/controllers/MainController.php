@@ -6,7 +6,7 @@
  * Time: 2:29
  */
 
-namespace controllers;
+namespace core\controllers;
 
 
 /**
