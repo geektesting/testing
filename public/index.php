@@ -7,4 +7,4 @@ declare(strict_types=1);
 require_once('../vendor/autoload.php');
 
 // Запускаем приложение
-(\core\App::getInstance())->run();
+(\App\App::getInstance())->run();

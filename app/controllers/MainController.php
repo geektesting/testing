@@ -6,8 +6,7 @@
  * Time: 2:29
  */
 
-namespace core\controllers;
-
+namespace App\controllers;
 
 /**
  * Class MainController
@@ -16,12 +15,24 @@ namespace core\controllers;
 class MainController extends BaseController
 {
     /**
-     * Тестовый метод
+     * @param array $data
      */
-    public function actionIndex(): void
+    public function actionIndex(array $data = []): void
     {
         $this->render("index", [
-                "content" => "Hello, " . AppName . "! 😎"
+                "content" => "Hello, " . AppName . "! 😎",
+                "test" => array_shift($data)
+            ]
+        );
+    }
+
+    /**
+     * @param array $numbers
+     */
+    public function actionNumber(array $numbers): void
+    {
+        $this->render("numbers", [
+                "numbers" => $numbers
             ]
         );
     }

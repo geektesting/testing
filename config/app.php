@@ -11,5 +11,6 @@
  * Файл конфигурации приложения
  */
 
+require('../config/routes.php');
 // Имя приложения
 const AppName = 'Testing Framework';

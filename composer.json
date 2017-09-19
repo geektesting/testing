@@ -14,14 +14,12 @@
         "phpunit/dbunit": "*",
         "squizlabs/php_codesniffer": "*"
     },
-  "autoload": {
-    "psr-4": {
-      "core\\": "core/",
-      "controllers\\": "controllers/",
-      "models\\": "models/"
-    },
-    "files": [
-      "config/app.php"
-    ]
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "config/app.php"
+        ]
     }
 }

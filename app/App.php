@@ -6,8 +6,7 @@
  * Time: 1:12
  */
 
-namespace core;
-use core\controllers\MainController;
+namespace App;
 
 /**
  * Class App
@@ -22,8 +21,7 @@ class App
      */
     public function run(): void
     {
-        // Вызываем тестовый метод actionIndex класса MainController
-        $m = new MainController();
-        $m->actionIndex();
+        // Запускаем роутер
+        Route::getInstance()->run();
     }
 }
