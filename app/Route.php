@@ -8,7 +8,6 @@
 
 namespace App;
 
-
 use App\controllers\BaseController;
 
 /**
@@ -17,146 +16,139 @@ use App\controllers\BaseController;
  */
 class Route
 {
-    use Singleton;
-
     /**
      * @var array
      */
-    private static $_getUri     = [];
-    private static $_postUri    = [];
-    private static $_putUri     = [];
-    private static $_patchUri   = [];
-    private static $_delUri     = [];
-    private static $_optUri     = [];
+    private $_routes    = [];
+    private $args       = [];
+    private $mainPart;
+    private $controller;
+    private $action;
 
     /**
-     * Метод 'GET'
-     * @param string $uri
-     * @param string $method
+     * Route constructor.
      */
-    public static function get(string $uri, string $method): void
+    public function __construct()
     {
-        self::$_getUri[] = [$uri => $method];
+        $this->_routes = require_once ('../config/routes.php');
     }
 
     /**
-     * Метод 'POST'
-     * @param string $uri
-     * @param string $method
+     * Запускам роутер
      */
-    public static function post(string $uri, string $method): void
+    public function run()
     {
-        self::$_postUri[] = [$uri => $method];
-    }
+        $uriParts = explode('?', $_SERVER['REQUEST_URI']);
+        $this->mainPart = trim(array_shift($uriParts), '/');
+        $args = array_shift($uriParts) ?? '';
+        $activeRule = [];
 
-    /**
-     * Метод 'PUT'
-     * @param string $uri
-     * @param string $method
-     */
-    public static function put(string $uri, string $method): void
-    {
-        self::$_putUri[] = [$uri => $method];
-    }
-
-    /**
-     * Метод 'PATCH'
-     * @param string $uri
-     * @param string $method
-     */
-    public static function patch(string $uri, string $method): void
-    {
-        self::$_patchUri[] = [$uri => $method];
-    }
-
-    /**
-     * Метод 'DELETE'
-     * @param string $uri
-     * @param string $method
-     */
-    public static function delete(string $uri, string $method): void
-    {
-        self::$_delUri[] = [$uri => $method];
-    }
-
-    /**
-     * Метод 'OPTIONS'
-     * @param string $uri
-     * @param string $method
-     */
-    public static function options(string $uri, string $method): void
-    {
-        self::$_optUri[] = [$uri => $method];
-    }
-
-    /**
-     * Начинаем разбор URI
-     */
-    public function run(): void
-    {
-
-        // разные маршруты взависимости от метода
-        switch ($_SERVER['REQUEST_METHOD'])
+        if (!empty($args))
         {
-            default:        $routesData = self::$_getUri;     break; // 'GET' по умолчанию
-            case 'POST':    $routesData = self::$_postUri;    break;
-            case 'PUT':     $routesData = self::$_putUri;     break;
-            case 'PATCH':   $routesData = self::$_patchUri;   break;
-            case 'DELETE':  $routesData = self::$_delUri;     break;
-            case 'OPTIONS': $routesData = self::$_optUri;     break;
-        }
-
-        $requestedUri = $_SERVER['REQUEST_URI'];
-
-        if ($requestedUri !== '/')
-        {
-            // разделяем uri по частям
-            $uri = explode('?', $requestedUri);
-            $requestedUri = urldecode(rtrim(reset($uri), '/'));
-        }
-
-        // проходимся по маршрутам
-        foreach ($routesData as $routes)
-        {
-            foreach ($routes as $route => $method )
+            $tmp = explode('&', $args);
+            foreach ($tmp as $arg)
             {
-                if (strpos($route, ':') !== false)
+                $params = explode('=', $arg);
+
+                if (isset($params[0]) && isset($params[1]))
+                    $this->args = array_merge($this->args, [$params[0] => $params[1]]);
+            }
+        }
+
+        foreach ($this->_routes as $rule => $target)
+        {
+            $ruleData = explode('/', $rule);
+            $pcre = '/';
+
+            foreach($ruleData as $rulePart)
+            {
+                // если это фиксированная часть
+                if(mb_substr($rulePart, 0, 1, 'UTF-8') != '{')
+                    $pcre .= $rulePart;
+                // это шаблон
+                else
+                    $pcre .= '([a-z0-9-]+\/)*';
+            }
+
+            $pcre .= '/';
+
+            if(preg_match($pcre, $this->mainPart))
+            {
+                $activeRule['pattern']      = trim($rule, '/');
+                $activeRule['controller']   = $target;
+                break;
+            }
+        }
+
+        if(!empty($activeRule))
+            $this->setUpRouting($activeRule);
+    }
+
+    /**
+     * Метод назначения управляющих конструкций, исходя из URL
+     * @param $activeRule
+     */
+    private function setUpRouting($activeRule)
+    {
+        $command        = $activeRule['controller'];
+        $urlPartsTmp    = array_filter(explode('/', $this->mainPart));
+        $urlParts       = [];
+
+        foreach($urlPartsTmp as $item)
+        {
+            if(!empty($item))
+                $urlParts[] = $item;
+        }
+
+        // если правило - это шаблон
+        if(preg_match('/{/', $activeRule['pattern']))
+        {
+            foreach (explode('/', $activeRule['pattern']) as $partKey => $patternPart)
+            {
+                if (preg_match('/{/', $patternPart))
                 {
-                    $route = str_replace(':a', '(.+)',
-                        str_replace(':n', '([0-9]+)',
-                            str_replace(':s', '([a-zA-Z]+)',
-                                $route
-                            )
-                        )
-                    );
-                }
+                    $replacer   = $urlParts[$partKey] ?? '';
+                    $command    = str_replace($patternPart, $replacer, $command);
 
-                // если условия совпадают - заменяем регулярное значение на данные
-                if (preg_match('#^'.$route.'$#', $requestedUri))
-                {
-                    if (strpos($method, '$') !== false && strpos($route, '(') !== false)
-                    {
-                        $route = preg_replace('#^'.$route.'$#', $method, $requestedUri);
-                    } else {
-                        $route = $method;
-                    }
+                    if (preg_match('/controller/', $patternPart))
+                        $this->controller = $replacer;
 
-                    $uriParts = explode('@', $route);
-                    $controller = 'App\\controllers\\' . array_shift($uriParts);
-                    $args = explode('/', array_shift($uriParts));
-                    $action = 'action'.ucfirst(array_shift($args));
-
-                    // вызываем метод, если он существует
-                    if (class_exists($controller) && method_exists($controller, $action))
-                    {
-                        call_user_func_array([(new $controller()), $action], [$args]);
-                        return;
-                    }
+                    if (preg_match('/action/', $patternPart))
+                        $this->action = $replacer;
                 }
             }
         }
-        // В случае, если указанный метод недоступен
-        // или запрашиваемый uri не найден - ыводим страницу с ошибкой
-        (new BaseController())->render('errors/404', []);
+
+        $this->call($command);
+    }
+
+    /**
+     * Правильно именуем контроллер и метод, после чего вызываем
+     * @param string $command
+     */
+    private function call(string $command)
+    {
+        $commandParts = explode('@', $command);
+
+        if (empty($this->controller) && current($commandParts))
+            $this->controller   = current($commandParts);
+        array_shift($commandParts);
+        if (empty($this->action) && current($commandParts))
+            $this->action       = array_shift($commandParts);
+
+        // если данные по прежнему пусты устанавливаем значения по умолчанию
+        if (empty($this->controller))
+            $this->controller   = 'main';
+        if (empty($this->action))
+            $this->action       = 'index';
+
+        $this->controller   = 'App\\controllers\\' . ucfirst($this->controller) . 'Controller';
+        $this->action       = 'action' . ucfirst($this->action);
+
+        // вызываем метод, если он существует
+        if (class_exists($this->controller) && method_exists($this->controller, $this->action))
+            call_user_func_array([(new $this->controller()), $this->action], [$this->args]);
+        else
+            (new BaseController())->render('errors/404', []);
     }
 }
