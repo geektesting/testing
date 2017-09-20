@@ -6,7 +6,7 @@
  * Time: 2:13
  */
 
-namespace core;
+namespace App;
 
 /**
  * Trait Singleton
@@ -40,6 +40,6 @@ trait Singleton
      */
     static public function getInstance(): self
     {
-        return self::$instance === null ? self::$instance = new static() : self::$instance;
+        return self::$instance ?? self::$instance = new static();
     }
 }
