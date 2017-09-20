@@ -50,3 +50,6 @@ Route::get('/', 'MainController@index');
 Route::get('/numbers/:n', 'MainController@number/$1');
 Route::get('/numbers/:n/:n', 'MainController@number/$1/$2');
 Route::get('/about', 'MainController@about');
+
+// Route::post('/login', 'UserController@postLogin');
+// Route::put('/user/:n', 'UserController@putUser/$1');

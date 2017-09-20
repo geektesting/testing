@@ -34,7 +34,7 @@ class Route
      * @param string $uri
      * @param string $method
      */
-    public static function get(string $uri, string $method)
+    public static function get(string $uri, string $method): void
     {
         self::$_getUri[] = [$uri => $method];
     }
@@ -44,7 +44,7 @@ class Route
      * @param string $uri
      * @param string $method
      */
-    public static function post(string $uri, string $method)
+    public static function post(string $uri, string $method): void
     {
         self::$_postUri[] = [$uri => $method];
     }
@@ -54,7 +54,7 @@ class Route
      * @param string $uri
      * @param string $method
      */
-    public static function put(string $uri, string $method)
+    public static function put(string $uri, string $method): void
     {
         self::$_putUri[] = [$uri => $method];
     }
@@ -64,7 +64,7 @@ class Route
      * @param string $uri
      * @param string $method
      */
-    public static function patch(string $uri, string $method)
+    public static function patch(string $uri, string $method): void
     {
         self::$_patchUri[] = [$uri => $method];
     }
@@ -74,7 +74,7 @@ class Route
      * @param string $uri
      * @param string $method
      */
-    public static function delete(string $uri, string $method)
+    public static function delete(string $uri, string $method): void
     {
         self::$_delUri[] = [$uri => $method];
     }
@@ -84,7 +84,7 @@ class Route
      * @param string $uri
      * @param string $method
      */
-    public static function options(string $uri, string $method)
+    public static function options(string $uri, string $method): void
     {
         self::$_optUri[] = [$uri => $method];
     }
