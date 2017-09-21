@@ -1,0 +1,22 @@
+---
+
+plugins:
+  - jest
+  - flowtype
+
+env:
+  browser: true
+  jest: true
+
+parser: babel-eslint
+
+extends:
+  - 'airbnb'
+  - 'plugin:flowtype/recommended'
+  - plugin:import/errors
+  - plugin:import/warnings
+
+rules:
+  "jsx-a11y/href-no-hash": "off"
+  "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
+  no-console: 0
