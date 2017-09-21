@@ -12,4 +12,4 @@
  */
 
 // Имя приложения
-const AppName = 'Testing Framework';
+const APPNAME = 'Testing Framework';
