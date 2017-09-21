@@ -18,7 +18,7 @@ class MainController extends BaseController
     public function actionIndex(): void
     {
         $this->render("index", [
-                "content" => "Hello, " . AppName . "! 😎"
+                "content" => "Hello, " . APPNAME . "! 😎"
             ]
         );
     }
