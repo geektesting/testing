@@ -14,26 +14,17 @@ namespace App\controllers;
  */
 class MainController extends BaseController
 {
-    /**
-     * @param array $data
-     */
-    public function actionIndex(array $data = []): void
+
+    public function actionIndex(): void
     {
         $this->render("index", [
-                "content" => "Hello, " . AppName . "! 😎",
-                "test" => array_shift($data)
+                "content" => "Hello, " . AppName . "! 😎"
             ]
         );
     }
 
-    /**
-     * @param array $numbers
-     */
-    public function actionNumber(array $numbers): void
+    public function actionAbout(): void
     {
-        $this->render("numbers", [
-                "numbers" => $numbers
-            ]
-        );
+        echo 'Hello from ' . __METHOD__;
     }
 }

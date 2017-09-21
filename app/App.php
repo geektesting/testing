@@ -22,6 +22,6 @@ class App
     public function run(): void
     {
         // Запускаем роутер
-        Route::getInstance()->run();
+        (new Route())->run();
     }
 }
