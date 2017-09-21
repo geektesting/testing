@@ -8,6 +8,8 @@
 
 namespace App\Core;
 
+use \App\Config;
+
 /**
  * Class Route
  * @package App
@@ -28,7 +30,7 @@ class Route
      */
     public function __construct()
     {
-        $this->_routes = \Config::$router;
+        $this->_routes = Config::$router;
     }
 
     /**
