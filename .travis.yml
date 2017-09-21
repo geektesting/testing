@@ -8,3 +8,5 @@ before_script:
 script:
     - make test
     - make lint
+    - make test-js
+    - make lint-js
