@@ -6,16 +6,7 @@
  * Time: 1:02
  */
 
-namespace App;
-
-/**
- * Файл конфигурации приложения
- */
-class Config {
-    public static $app;
-    public static $db;
-    public static $router;
-}
+use \App\Core\Config;
 
 // Имя приложения
 Config::$app["NAME"] = "Testing Framework";
