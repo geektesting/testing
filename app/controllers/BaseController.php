@@ -22,7 +22,7 @@ class BaseController
     public function render(string $template, array $data): void
     {
         $twig = new \Twig_Environment(
-            new \Twig_Loader_Filesystem('../views/'), []
+            new \Twig_Loader_Filesystem(\Config::$app["VIEWS"]), []
         );
 
         echo $twig->render($template . '.tmpl', [

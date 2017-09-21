@@ -6,9 +6,7 @@
  * Time: 12:57
  */
 
-namespace App;
-
-use App\controllers\BaseController;
+namespace App\Core;
 
 /**
  * Class Route
@@ -30,7 +28,7 @@ class Route
      */
     public function __construct()
     {
-        $this->_routes = require_once ('../config/routes.php');
+        $this->_routes = \Config::$router;
     }
 
     /**
@@ -119,14 +117,14 @@ class Route
             }
         }
 
-        $this->call($command);
+        $this->detectRoute($command);
     }
 
     /**
-     * Правильно именуем контроллер и метод, после чего вызываем
+     * Правильно именуем контроллер и метод
      * @param string $command
      */
-    private function call(string $command)
+    private function detectRoute(string $command)
     {
         $commandParts = explode('@', $command);
 
@@ -144,11 +142,30 @@ class Route
 
         $this->controller   = 'App\\controllers\\' . ucfirst($this->controller) . 'Controller';
         $this->action       = 'action' . ucfirst($this->action);
-
-        // вызываем метод, если он существует
-        if (class_exists($this->controller) && method_exists($this->controller, $this->action))
-            call_user_func_array([(new $this->controller()), $this->action], [$this->args]);
-        else
-            (new BaseController())->render('errors/404', []);
     }
+
+    /**
+     * @return string
+     */
+    public function getController(): string
+    {
+        return $this->controller;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return $this->action;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArgs(): array
+    {
+        return $this->args;
+    }
+
 }

@@ -18,7 +18,7 @@ class MainController extends BaseController
     public function actionIndex(): void
     {
         $this->render("index", [
-                "content" => "Hello, " . APPNAME . "! 😎"
+                "content" => "Hello, " . \Config::$app["NAME"] . "! 😎"
             ]
         );
     }
