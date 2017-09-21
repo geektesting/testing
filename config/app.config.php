@@ -6,7 +6,7 @@
  * Time: 1:02
  */
 
-use \App\Core\Config;
+use \App\Config;
 
 // Имя приложения
 Config::$app["NAME"] = "Testing Framework";

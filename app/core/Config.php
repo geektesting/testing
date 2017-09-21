@@ -6,7 +6,7 @@
  * Time: 2:01
  */
 
-namespace App\Core;
+namespace App;
 
 /**
  * Файл конфигурации приложения

@@ -7,6 +7,7 @@
  */
 
 namespace App\Core;
+use \App\Config;
 
 /**
  * Class Route

@@ -8,7 +8,7 @@
 
 namespace App\controllers;
 
-use \App\Core\Config;
+use \App\Config;
 
 /**
  * Class BaseController
