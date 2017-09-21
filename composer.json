@@ -19,7 +19,7 @@
             "App\\": "app/"
         },
 		"files": [
-            "app/core/config.php",
+            "app/core/Config.php",
 			"config/app.config.php"
 		]
     }
