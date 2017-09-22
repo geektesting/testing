@@ -6,7 +6,7 @@
  * Time: 2:13
  */
 
-namespace App;
+namespace App\Core;
 
 /**
  * Trait Singleton
