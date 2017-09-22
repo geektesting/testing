@@ -7,6 +7,9 @@ install:
 update:
 	composer update
 
+autoload:
+	composer dump-autoload -o
+
 
 # test
 
