@@ -6,12 +6,16 @@
  * Time: 21:56
  */
 
-namespace app\controllers;
+namespace App\controllers;
 
 
-class UserController
+class UserController extends BaseController
 {
     public function actionIndex()
+    {
+        echo 'Hello from ' . __METHOD__;
+    }
+    public function actionAbout()
     {
         echo 'Hello from ' . __METHOD__;
     }
