@@ -1,0 +1,18 @@
+.nav-link-green {
+    color: $green-blue;
+    padding: 0.5rem 0 !important;
+    &:hover {
+        color: $green-blue-dark;
+        text-decoration: none;
+    }
+}
+
+.nav-link-green-block {
+    @extend .nav-link-green;
+    display: block;
+}
+
+.main {
+    margin-top: 3rem;
+}
+
