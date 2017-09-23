@@ -32,7 +32,7 @@ class App
 
         // вызываем метод, если он существует
         if (class_exists($controller) && method_exists($controller, $action))
-            call_user_func_array([(new $controller()), $action], $router->getArgs());
+           (new $controller())->$action();
         else
             (new BaseController())->render('errors/404', []);
 
