@@ -28,14 +28,13 @@ class App
         $router->run();
 
         $controller = $router->getController();
-        $action = $router->getAction();
+        $action     = $router->getAction();
 
         // вызываем метод, если он существует
         if (class_exists($controller) && method_exists($controller, $action))
            (new $controller())->$action();
         else
             (new BaseController())->render('errors/404', []);
-
     }
 
 }
