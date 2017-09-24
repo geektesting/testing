@@ -56,7 +56,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2017-09-19 12:41:22"
+            "time": "2017-09-19T12:41:22+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -115,7 +115,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14 15:44:48"
+            "time": "2017-06-14T15:44:48+00:00"
         },
         {
             "name": "twig/twig",
@@ -181,7 +181,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-08-19 17:43:10"
+            "time": "2017-08-19T17:43:10+00:00"
         }
     ],
     "packages-dev": [
