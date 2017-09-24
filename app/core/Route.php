@@ -18,8 +18,7 @@ class Route
     /**
      * @var array
      */
-    private $_routes    = [];
-    private $args       = [];
+    private $_routes = [];
     private $mainPart;
     private $controller;
     private $action;
@@ -39,20 +38,7 @@ class Route
     {
         $uriParts = explode('?', $_SERVER['REQUEST_URI']);
         $this->mainPart = trim(array_shift($uriParts), '/');
-        $args = array_shift($uriParts) ?? '';
         $activeRule = [];
-
-        if (!empty($args))
-        {
-            $tmp = explode('&', $args);
-            foreach ($tmp as $arg)
-            {
-                $params = explode('=', $arg);
-
-                if (isset($params[0]) && isset($params[1]))
-                    $this->args = array_merge($this->args, [$params[0] => $params[1]]);
-            }
-        }
 
         foreach ($this->_routes as $rule => $target)
         {
@@ -159,14 +145,6 @@ class Route
     public function getAction(): string
     {
         return $this->action;
-    }
-
-    /**
-     * @return array
-     */
-    public function getArgs(): array
-    {
-        return $this->args;
     }
 
 }
