@@ -1,0 +1,36 @@
+.cat_id {
+        width:30px;
+}
+.cat_name, .cat_level_0,.cat_level_1,.cat_level_2,.cat_level_3,.cat_level_4,.cat_level_5,.cat_access{
+padding-left:10px;
+}
+.cat_level_0 {
+    text-indent: 0px;
+}
+.cat_level_1 {
+    text-indent: 20px;
+}
+.cat_level_2 {
+    text-indent: 40px;
+}
+.cat_level_3 {
+    text-indent: 60px;
+}
+ .cat_level_4 {
+    text-indent: 80px;
+}
+ .cat_level_5 {
+    text-indent: 100px;
+}
+ .cat_access,.cat_parent{
+    text-align:center;
+ }      
+.cat_public{
+color: green;
+}
+.cat_private{
+color:red;
+}
+.cat_refused{
+text-decoration:line-through;
+}

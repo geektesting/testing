@@ -15,10 +15,10 @@ Config::$app["VIEWS"]       = $_SERVER["DOCUMENT_ROOT"]."/../app/views/";
 
 // Настройки БД
 Config::$db["DB_DRIVER"]    = "mysql"; // драйвер БД
-Config::$db["DB_HOST"]      = "localhost"; // сервер БД
-Config::$db["DB_USER"]      = "user"; // логин
-Config::$db["DB_PASS"]      = "password"; // пароль
-Config::$db["DB_NAME"]      = "geektesting"; // имя БД
+Config::$db["DB_HOST"]      = "127.0.0.1"; // сервер БД
+Config::$db["DB_USER"]      = "root"; // логин
+Config::$db["DB_PASS"]      = ""; // пароль
+Config::$db["DB_NAME"]      = "oleg_bolden"; // имя БД
 
 // Настройки роутинга
 Config::$router = [

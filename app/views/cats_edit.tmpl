@@ -1,0 +1,119 @@
+{% include "layouts/head.tmpl" %}
+
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img class="logo logo-q" src="/static/img/logo.jpg" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">О проекте</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Зарегистрироваться</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Войти" aria-label="Войти">
+                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- /.navbar -->
+
+
+<header class="header d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <h1 class="display-2">GEEKTEST</h1>
+        <p class="lead">Самый удобный сервис прохождения тестов во Вселенной. Регистрируйся и проверяй себя!</p>
+    </div>
+</header>
+
+
+<main class="main">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3 order-3 order-lg-1">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Ваши тесты</h4>
+                        <a class="nav-link-green-block" href="/cats/">Категории тестов</a>
+                        <a class="nav-link-green-block" href="#">Тесты</a>
+                        <a class="nav-link-green-block" href="#">Категории вопросов</a>
+                        <a class="nav-link-green-block" href="#">Вопросы</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-9 col-md-12 order-1 order-lg-2">
+                <div class="card mb-4">
+
+                    <div class="card-body">
+                        <h4 class="card-title">Редактирование категории</h4>
+		
+		<form action="/cats/editsave/">
+
+				<input type="hidden" class="form-control" name="catId" value="{{ data.current }}">
+		<div class="form-group">
+				<label for="cat_name">Название категории</label>
+					{% set current_parent = 0 %}				
+					{% for cat in data.cats %}
+						{% if cat.id == data.current %}
+				<input type="text" class="form-control" name="catName" value="{{ cat.cat_name }}">
+						{% set current_parent = cat.parent %}
+						{% endif %}
+					{% endfor %}
+			</div>
+
+			<div class="form-group">
+				<label for="parent">Родительская категория </label>
+				<select class="form-control" name="parent">
+					{% set no_parent = 1 %}
+					{% if current_parent == 0 %}
+						<option value=0 selected>Нет родительской категории</option>
+						{% set no_parent = 0 %}
+					{% endif %}
+					{% if no_parent %}
+						<option value=0>Нет родительской категории</option>
+					{% endif %}
+					{% for cat in data.cats %}
+						{% if cat.id == current_parent %}
+							<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
+						{% else %}
+							<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
+						{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Сохранить</button>
+		</form>
+		
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</main>
+<!-- /.main -->
+
+
+{% include "layouts/footer.tmpl" %}
