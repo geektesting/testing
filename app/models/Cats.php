@@ -36,6 +36,13 @@ class Cats
 
         foreach ($data as &$item) {
             $item["ignore"] = 0;
+            $item["no_delete"] = 0;
+            foreach ($data as $cat) {
+                if ($item["id"] == $cat["parent"]){
+                    $item["no_delete"] = 1;
+                    break;
+                }
+            }
         }
 
         $findChild = function ($parent) use ($data, &$result, &$findChild) {
@@ -85,21 +92,13 @@ class Cats
 
     /**
      * Удаляет категорию пользователя
-     * ToDo Сделать проверку категории на отсутствие в ней подкатегорий и тестов
+     * ToDo Сделать проверку категории на отсутствие в ней тестов
      * @param int $id
      */
-    function catDelete(int $id) : bool
+    function catDelete(int $id) : void
     {
-        $cats = self::catList();
-        foreach ($cats as $cat) {
-            if ($cat["parent"] == $id) {
-                header('Location: /cats/');
-                return false;
-            }
-        }
         DB::getInstance()->execute("DELETE FROM cats WHERE id ='$id'");
         header('Location: /cats/');
-        return true;
     }
 
     /**

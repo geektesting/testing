@@ -137,8 +137,12 @@
 										{% else %}
 											<td class='cat_access cat_private'>Отклонено</td>
 										{% endif %}
+										{%  if cat.no_delete == 0 %}
 										<td class='cat_access'><a href="/cats/delete/?id={{ cat.id }}" id="{{ cat.id }}">
 											<i class="fa fa-times-circle" aria-hidden="true"></i></a></td></tr>
+										{% else %}
+										<td class='cat_access'><i class="fa fa-times-circle" aria-hidden="true"></i></td></tr>										
+										{% endif %}
 								{% endfor %}
 								</table>
 								<a href="/cats/create/"><button type="submit" id="catCreate" class="btn btn-primary">Создать</button></a>
