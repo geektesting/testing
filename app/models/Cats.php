@@ -1,18 +1,22 @@
 <?php
-namespace App\models;
+namespace App\Models;
 
 use App\Core\DB;
 
+/**
+ * Class SessionsRep
+ * @package Rep
+ */
 class Cats
 {
-    private static $user_id = 1;  // 1 - админ
+    private static $_userId = 1;  // 1 - админ
 
     /**
      * По умолчанию возвращает массив категорий для бекенда.
      * Администратор видит все категории, пользователь - только свои.
      * С необязательным параметром "front" предназначена для отображения на фронтенде
      * всех категорий за исключением скрытых (access=private) и неодобренных(approved=0).
-     * @param $isFront string
+     * @param  string $isFront
      * @return array
      */
     static function catList(string $isFront = "") : array
@@ -20,25 +24,25 @@ class Cats
         $result = [];
         $data = null;
 
-        if ($isFront != "")
+        if ($isFront != "") {
             if ($isFront == "front") {
                 $data = DB::getInstance()->fetchAll("SELECT * FROM cats WHERE approved = 1 AND access = 1");
             } else {
                 echo "Допускается только параметр \"front\"";
                 return [];
             }
-        else if (self::$user_id == 1) {
-            $data = DB::getInstance()->fetchAll("SELECT * FROM cats");
+        } else if (self::$_userId == 1) {
+                $data = DB::getInstance()->fetchAll("SELECT * FROM cats");
         } else {
-            $data = DB::getInstance()->fetchAll("(SELECT * FROM cats WHERE id = 1) 
-                                                union (SELECT * FROM cats WHERE user_id = '" . self::$user_id . "')");
+                $data = DB::getInstance()->fetchAll("(SELECT * FROM cats WHERE id = 1) 
+                                                UNION (SELECT * FROM cats WHERE user_id = '" . self::$_userId . "')");
         }
-
+        
         foreach ($data as &$item) {
             $item["ignore"] = 0;
             $item["no_delete"] = 0;
             foreach ($data as $cat) {
-                if ($item["id"] == $cat["parent"]){
+                if ($item["id"] == $cat["parent"]) {
                     $item["no_delete"] = 1;
                     break;
                 }
@@ -58,7 +62,7 @@ class Cats
             }
         };
 
-        if (self::$user_id == 1 || $isFront == "front") {
+        if (self::$_userId == 1 || $isFront == "front") {
             foreach ($data as $value) {
                 if (!$value["parent"]) $findChild($value);
             }
@@ -71,15 +75,15 @@ class Cats
 
     /**
      * Создаёт категорию и устанавливает для неё родительскую
-     * @param string $cat_name
+     * @param string $catName
      * @param int $parent
      * @return bool
      */
-    function catCreate(string $cat_name, int $parent) : bool
+    function catCreate(string $catName, int $parent) : bool
     {
         $data = DB::getInstance()->fetchOne("SELECT level FROM cats WHERE id = '$parent'");
         $sql = "INSERT INTO cats (`cat_name`,`parent`,`level`,`user_id`) 
-                    VALUES ('$cat_name', '$parent','$data[level]' + 1,'self::$user_id')";
+                    VALUES ('$catName', '$parent','$data[level]' + 1,". self::$_userId .')';
         $result = DB::getInstance()->execute($sql);
         if ($result) {
             header('Location: /cats/');
@@ -93,42 +97,41 @@ class Cats
     /**
      * Удаляет категорию пользователя
      * ToDo Сделать проверку категории на отсутствие в ней тестов
-     * @param int $id
+     * @param int $catId
      */
-    function catDelete(int $id) : void
+    function catDelete(int $catId)
     {
-        DB::getInstance()->execute("DELETE FROM cats WHERE id ='$id'");
+        DB::getInstance()->execute("DELETE FROM cats WHERE id ='$catId'");
         header('Location: /cats/');
     }
 
     /**
      * Перемещает и переименовывает категорию с детьми путём изменения её родителя.
      *
-     * @param int $id
-     * @param string $new_name
+     * @param int $catId
+     * @param string $newName
      * @param int $parent
      * @return bool
      */
-    function catEdit(int $id, string $new_name, int $parent) : bool
+    function catEdit(int $catId, string $newName, int $parent) : bool
     {
         $result = [];
-
         $cats = self::catList();
 
-        $where = function (int $id = 0) : string {
+        $where = function (int $catId = 0) : string {
             static $statement = "";
             if (!$statement) {
-                $statement = "WHERE id = $id";
+                $statement = "WHERE id = $catId";
                 return $statement;
             }
-            if ($id) {
-                $statement .= " OR id = $id";
+            if ($catId) {
+                $statement .= " OR id = $catId";
             }
             return $statement;
         };
 
         foreach ($cats as $cat) {
-            if ($cat["id"] == $id) {
+            if ($cat["id"] == $catId) {
                 $result[] = $cat;
                 while ($result[0]["level"] < next($cats)["level"]) {
                     $result[] = current($cats);
@@ -152,8 +155,12 @@ class Cats
 
         $delta = $result[0]["level"] - $data["level"] - 1;
 
-        if (self::$user_id == 1 || $data["user_id"] == self::$user_id) { // Убрать избыточность
-            DB::getInstance()->execute("UPDATE cats set `cat_name` = '$new_name', `parent` = '$parent',`level` = '$data[level]' + 1 WHERE id = '$id'");
+        if (self::$_userId == 1 || $data["user_id"] == self::$_userId) { // Убрать избыточность
+            DB::getInstance()->execute("UPDATE cats set
+                `cat_name` = '$newName', 
+                `parent` = '$parent',
+                `level` = '$data[level]' + 1
+                WHERE id = '$catId'");
             if ($delta) {
                 DB::getInstance()->execute("UPDATE cats set `level` = `level`-'$delta'" . $where());
             }
