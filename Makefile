@@ -13,7 +13,7 @@ autoload:
 	composer dump-autoload -o
 
 create-env:
-	cp -n .env.example .env || :
+	cd config/ && cp -n .env.example .env || :
 
 
 # test
