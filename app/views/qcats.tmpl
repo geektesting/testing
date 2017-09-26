@@ -63,27 +63,62 @@
                 <div class="card mb-4">
 
                     <div class="card-body">
-                        <h4 class="card-title">Создание категории</h4>
-		
-		<form action="/cats/save/">
-			<div class="form-group">
-				<label for="cat_name">Название категории</label>
-				<input type="text" class="form-control" name="catName" placeholder="Например, 'Самые сложные тесты по PHP'">
-			</div>
+                        <h4 class="card-title">Категории вопросов</h4>
+		<style>
+		.cat_id {
+        width:30px;
+        }
+        .cat_name, .cat_level_0,.cat_level_1,.cat_level_2,.cat_level_3,.cat_level_4,.cat_level_5,.cat_access{
+        padding-left:10px;
+        }
+        .cat_level_0 {
+            text-indent: 0px;
+        }
+        .cat_level_1 {
+            text-indent: 20px;
+        }
+        .cat_level_2 {
+            text-indent: 40px;
+        }
+        .cat_level_3 {
+            text-indent: 60px;
+        }
+         .cat_level_4 {
+            text-indent: 80px;
+        }
+         .cat_level_5 {
+            text-indent: 100px;
+        }
+         .cat_access,.cat_parent{
+            text-align:center;
+         }      
+        .cat_public{
+        color: green;
+        }
+        .cat_private{
+        color:red;
+        }
+        .cat_refused{
+        text-decoration:line-through;
+        }
 
-			<div class="form-group">
-				<label for="parent">Родительская категория </label>
-				<select class="form-control" name="parent">
-						<option value=0 selected>Нет родительской категории</option>
-					{% for cat in cats %}
-						<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
-					{% endfor %}
-				</select>
-			</div>
-			
-			<button type="submit" class="btn btn-primary">Сохранить</button>
-		</form>
-		
+		</style>
+								<table class="table"><tr>
+										<th class='cat_id'>ID</th>
+										<th class='cat_name'>Название</th>
+										<th class='cat_access'>Пользователь (uid)</th>
+										<th class='cat_access'>Удалить</th></tr>
+										
+								{% for cat in cats %}
+										<tr><td>{{ cat.id }}</td>
+												<td><a href="/qcats/edit/?id={{ cat.id }}&cat_name={{ cat.cat_name }}">{{ cat.cat_name }}</td>
+												<td class='cat_access'>{{ cat.user_id }}</td>
+												<td class='cat_access'><a href="/qcats/delete/?id={{ cat.id }}" id="{{ cat.id }}">
+												<i class="fa fa-times-circle" aria-hidden="true"></i></a></td></tr>
+								{% endfor %}
+								
+								</table>
+								<a href="/qcats/create/"><button type="submit" id="catCreate" class="btn btn-primary">Создать</button></a>
                     </div>
                 </div>
             </div>

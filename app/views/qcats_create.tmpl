@@ -65,20 +65,10 @@
                     <div class="card-body">
                         <h4 class="card-title">Создание категории</h4>
 		
-		<form action="/cats/save/">
+		<form action="/qcats/save/">
 			<div class="form-group">
 				<label for="cat_name">Название категории</label>
-				<input type="text" class="form-control" name="catName" placeholder="Например, 'Самые сложные тесты по PHP'">
-			</div>
-
-			<div class="form-group">
-				<label for="parent">Родительская категория </label>
-				<select class="form-control" name="parent">
-						<option value=0 selected>Нет родительской категории</option>
-					{% for cat in cats %}
-						<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
-					{% endfor %}
-				</select>
+				<input type="text" class="form-control" name="cat_name" placeholder="Например, 'PHP-2. Основы ООП'">
 			</div>
 			
 			<button type="submit" class="btn btn-primary">Сохранить</button>
