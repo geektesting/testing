@@ -123,14 +123,14 @@ class Route
         }
         // если данные по прежнему пусты устанавливаем значения по умолчанию
         if (empty($this->_controller)) {
-            $this->_controller   = 'main';
+            $this->_controller	= 'main';
         }
         if (empty($this->_action)) {
-            $this->_action     = 'index';
+            $this->_action		= 'index';
         }
 
-        $this->_controller   = 'App\\controllers\\' . ucfirst($this->_controller) . 'Controller';
-        $this->_action       = 'action' . ucfirst($this->_action);
+        $this->_controller	= 'App\\controllers\\' . ucfirst($this->_controller) . 'Controller';
+        $this->_action		= 'action' . ucfirst($this->_action);
     }
 
     /**

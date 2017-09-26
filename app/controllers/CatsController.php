@@ -21,7 +21,7 @@ class CatsController extends BaseController
      */
     public function actionIndex()
     {
-            echo $this->render("cats", [
+		$this->render("cats", [
                 "cats" => Cats::catList()
             ]);
     }
@@ -31,7 +31,7 @@ class CatsController extends BaseController
      */
     public function actionEdit()
     {
-        echo $this->render("cats_edit", [
+		$this->render("cats_edit", [
             "cats" => Cats::catList(),
             "current" => $_GET["id"]
         ]);
@@ -42,7 +42,7 @@ class CatsController extends BaseController
      */
     public function actionCreate()
     {
-        echo $this->render("cats_create", [
+		$this->render("cats_create", [
             "cats" => Cats::catList()
         ]);
     }
