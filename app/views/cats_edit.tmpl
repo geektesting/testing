@@ -67,12 +67,12 @@
 		
 		<form action="/cats/editsave/">
 
-				<input type="hidden" class="form-control" name="catId" value="{{ data.current }}">
+				<input type="hidden" class="form-control" name="catId" value="{{ current }}">
 		<div class="form-group">
 				<label for="cat_name">Название категории</label>
 					{% set current_parent = 0 %}				
-					{% for cat in data.cats %}
-						{% if cat.id == data.current %}
+					{% for cat in cats %}
+						{% if cat.id == current %}
 				<input type="text" class="form-control" name="catName" value="{{ cat.cat_name }}">
 						{% set current_parent = cat.parent %}
 						{% endif %}
@@ -90,7 +90,7 @@
 					{% if no_parent %}
 						<option value=0>Нет родительской категории</option>
 					{% endif %}
-					{% for cat in data.cats %}
+					{% for cat in cats %}
 						{% if cat.id == current_parent %}
 							<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
 						{% else %}

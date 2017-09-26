@@ -75,7 +75,7 @@
 				<label for="parent">Родительская категория </label>
 				<select class="form-control" name="parent">
 						<option value=0 selected>Нет родительской категории</option>
-					{% for cat in data.cats %}
+					{% for cat in cats %}
 						<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
 					{% endfor %}
 				</select>

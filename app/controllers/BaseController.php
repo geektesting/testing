@@ -27,9 +27,6 @@ class BaseController
             new \Twig_Loader_Filesystem(Config::$app["VIEWS"]), []
         );
 
-        echo $twig->render($template . '.tmpl', [
-                'data' => $data
-            ]
-        );
+        echo $twig->render($template . '.tmpl', $data);
     }
 }
