@@ -6,7 +6,7 @@
  * Time: 2:29
  */
 
-namespace App\controllers;
+namespace App\Controllers;
 
 use \App\Config;
 
@@ -17,7 +17,10 @@ use \App\Config;
 class MainController extends BaseController
 {
 
-    public function actionIndex(): void
+    /**
+     * ActionIndex
+     */
+    public function actionIndex()
     {
         $this->render("index", [
                 "content" => "Hello, " . Config::$app["NAME"] . "! 😎"
@@ -25,7 +28,10 @@ class MainController extends BaseController
         );
     }
 
-    public function actionAbout(): void
+    /**
+     * ActionAbout
+     */
+    public function actionAbout()
     {
         echo 'Hello from ' . __METHOD__;
     }

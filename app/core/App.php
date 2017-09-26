@@ -8,11 +8,11 @@
 
 namespace App\Core;
 
-use App\controllers\BaseController;
+use App\Controllers\BaseController;
 
 /**
  * Class App
- * @package core
+ * @package Core
  */
 class App
 {
@@ -21,7 +21,7 @@ class App
     /**
      * Метод инициализации приложения
      */
-    public function run(): void
+    public function run()
     {
         // Запускаем роутер
         $router = new Route();
@@ -31,10 +31,11 @@ class App
         $action     = $router->getAction();
 
         // вызываем метод, если он существует
-        if (class_exists($controller) && method_exists($controller, $action))
-           (new $controller())->$action();
-        else
+        if (class_exists($controller) && method_exists($controller, $action)) {
+            (new $controller())->$action();
+        } else {
             (new BaseController())->render('errors/404', []);
+        }
     }
-
 }
+

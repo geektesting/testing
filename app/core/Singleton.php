@@ -10,14 +10,14 @@ namespace App\Core;
 
 /**
  * Trait Singleton
- * @package core
+ * @package Core
  */
 trait Singleton
 {
     /**
      * @var null
      */
-    static private $instance = null;
+    static private $_instance = null;
 
     /**
      * Singleton constructor.
@@ -38,8 +38,8 @@ trait Singleton
      * Возвращаем единственный экземпляр класса
      * @return self
      */
-    static public function getInstance(): self
+    static public function getInstance() : self
     {
-        return self::$instance ?? self::$instance = new static();
+        return self::$_instance ?? self::$_instance = new static();
     }
 }

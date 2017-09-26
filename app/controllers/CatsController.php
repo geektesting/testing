@@ -6,19 +6,30 @@
  * Time: 19:56
  */
 
-namespace App\controllers;
-use App\models\Cats;
+namespace App\Controllers;
+use App\Models\Cats;
 
-class CatsController extends BaseController {
-	
-    public function actionIndex() :void
+/**
+ * Class CatsController
+ * @package Controllers
+ */
+class CatsController extends BaseController 
+{ 
+
+    /**
+     * ActionIndex
+     */
+    public function actionIndex()
     {
             echo $this->render("cats", [
                 "cats" => Cats::catList()
             ]);
     }
 
-    public function actionEdit() :void
+    /**
+     * ActionEdit
+     */
+    public function actionEdit()
     {
         echo $this->render("cats_edit", [
             "cats" => Cats::catList(),
@@ -26,24 +37,36 @@ class CatsController extends BaseController {
         ]);
     }
 
-    public function actionCreate() :void
+    /**
+     * ActionCreate
+     */
+    public function actionCreate()
     {
         echo $this->render("cats_create", [
             "cats" => Cats::catList()
         ]);
     }
 
-    public function actionSave() :void
+    /**
+     * ActionSave
+     */
+    public function actionSave()
     {
-        Cats::catCreate( (string) $_GET["catName"], (int) $_GET["parent"]);
+        Cats::catCreate((string) $_GET["catName"], (int) $_GET["parent"]);
     }
 
-    public function actionDelete() :void
-    {
+    /**
+     * ActionDelete
+     */
+    public function actionDelete()
+    { 
         Cats::catDelete($_GET["id"]);
     }
 
-    public function actionEditsave() :void
+    /**
+     * ActionEditSave 
+     */
+    public function actionEditSave()
     {
         Cats::catEdit((int) $_GET["catId"], (string) $_GET["catName"], (int) $_GET["parent"]);
     }

@@ -17,8 +17,8 @@ Config::$app["VIEWS"]       = $_SERVER["DOCUMENT_ROOT"]."/../app/views/";
 Config::$db["DB_DRIVER"]    = "mysql"; // драйвер БД
 Config::$db["DB_HOST"]      = "127.0.0.1"; // сервер БД
 Config::$db["DB_USER"]      = "root"; // логин
-Config::$db["DB_PASS"]      = ""; // пароль
-Config::$db["DB_NAME"]      = "oleg_bolden"; // имя БД
+Config::$db["DB_PASS"]      = "WU4qJkMfdJ5ABg3s"; // пароль
+Config::$db["DB_NAME"]      = "testing"; // имя БД
 
 // Настройки роутинга
 Config::$router = [
