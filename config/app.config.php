@@ -9,7 +9,7 @@
 use \App\Config;
 
 // Подключаем файл переменных окружения
-$dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
+$dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 
 // Имя приложения
