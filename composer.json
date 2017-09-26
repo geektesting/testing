@@ -6,7 +6,8 @@
     "require": {
         "php": ">= 7",
         "twig/twig": "~2.0",
-        "doctrine/instantiator": "^1.0.2"
+        "doctrine/instantiator": "^1.0.2",
+        "vlucas/phpdotenv": "^2.4@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

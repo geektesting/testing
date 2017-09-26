@@ -1,7 +1,9 @@
 # composer
 
-install: 
-	composer install 
+install: setup create-env
+
+setup: 
+	composer install
 	cd public/assets/ && npm install
 
 update:
@@ -9,6 +11,9 @@ update:
 
 autoload:
 	composer dump-autoload -o
+
+create-env:
+	cp -n .env.example .env || :
 
 
 # test
