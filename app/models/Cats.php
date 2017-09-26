@@ -79,7 +79,7 @@ class Cats
      * @param int $parent
      * @return bool
      */
-    function catCreate(string $catName, int $parent) : bool
+    public static function catCreate(string $catName, int $parent) : bool
     {
         $data = DB::getInstance()->fetchOne("SELECT level FROM cats WHERE id = '$parent'");
         $sql = "INSERT INTO cats (`cat_name`,`parent`,`level`,`user_id`) 
@@ -99,7 +99,7 @@ class Cats
      * ToDo Сделать проверку категории на отсутствие в ней тестов
      * @param int $catId
      */
-    function catDelete(int $catId)
+    public static function catDelete(int $catId)
     {
         DB::getInstance()->execute("DELETE FROM cats WHERE id ='$catId'");
         header('Location: /cats/');
@@ -113,9 +113,10 @@ class Cats
      * @param int $parent
      * @return bool
      */
-    function catEdit(int $catId, string $newName, int $parent) : bool
+    public static function catEdit(int $catId, string $newName, int $parent) : bool
     {
         $result = [];
+		$data = [];
         $cats = self::catList();
 
         $where = function (int $catId = 0) : string {
@@ -142,6 +143,7 @@ class Cats
             next($cats);
         }
 
+
         if ($parent) {
             foreach ($cats as $cat) {
                 if ($cat["id"] == $parent) {
@@ -156,13 +158,13 @@ class Cats
         $delta = $result[0]["level"] - $data["level"] - 1;
 
         if (self::$_userId == 1 || $data["user_id"] == self::$_userId) { // Убрать избыточность
-            DB::getInstance()->execute("UPDATE cats set
+            DB::getInstance()->execute("UPDATE cats SET
                 `cat_name` = '$newName', 
                 `parent` = '$parent',
                 `level` = '$data[level]' + 1
                 WHERE id = '$catId'");
             if ($delta) {
-                DB::getInstance()->execute("UPDATE cats set `level` = `level`-'$delta'" . $where());
+                DB::getInstance()->execute("UPDATE cats SET `level` = `level`-'$delta'" . $where());
             }
             header('Location: /cats/');
             return true;
