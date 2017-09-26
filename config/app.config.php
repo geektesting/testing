@@ -9,8 +9,11 @@
 use \App\Config;
 
 // Подключаем файл переменных окружения
-$dotenv = new Dotenv\Dotenv(__DIR__);
-$dotenv->load();
+if (empty($_ENV["DB_HOST"])) {
+    $dotenv = new Dotenv\Dotenv(__DIR__);
+    $dotenv->load();
+}
+
 
 // Имя приложения
 Config::$app["NAME"]        = "Testing Framework";
