@@ -68,9 +68,7 @@ class DB
      */
     public function fetchOne($sql, $params = [])
     {
-        $smtp = $this->query($sql);
-        $smtp->execute($params);
-        return $this->fetchAll()[0];
+        return $this->fetchAll($sql, $params)[0];
     }
 
     /**

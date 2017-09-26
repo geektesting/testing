@@ -1,6 +1,6 @@
 # composer
 
-install: setup create-env
+install: setup create-env autoload
 
 setup: 
 	composer install
@@ -19,7 +19,7 @@ create-env:
 # test
 
 test: 
-	phpunit tests/mytestsuite.php
+	./vendor/codeception/codeception/codecept run acceptance
 
 lint:
 	./vendor/bin/phpcs ./* --ignore=vendor/,tests/ --extensions=php --colors --standard=PSR1 -v
