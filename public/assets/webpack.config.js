@@ -42,7 +42,8 @@ const plugins = [
                 {   
                     match: [
                         '../../*/*.php',
-                        '../../*/*.tmpl',
+                        '../../app/*/*.php',
+                        '../../app/views/*.tmpl',
                     ],
                     fn: function(event, file) {
                         if (event === "change") {
@@ -54,7 +55,7 @@ const plugins = [
             ],
         },
         {
-            reload: true
+            reload: true,
         })
 ];
 
@@ -86,7 +87,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.(scss|css)$/,
+                test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: ['css-loader', 'sass-loader']
