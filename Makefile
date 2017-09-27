@@ -19,7 +19,7 @@ create-env:
 
 create-db:
 	mysql -e 'CREATE DATABASE IF NOT EXISTS testing;'
-	cd db/  mysql -u root testing < db.sql && \
+	cd db/ && mysql -u root testing < db.sql && \
     mysql -u root testing < cats.sql  && \
     mysql -u root testing < qcats.sql
 
