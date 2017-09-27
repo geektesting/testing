@@ -8,10 +8,7 @@ services:
 
 before_script:
     - make install
-    - mysql -e 'CREATE DATABASE IF NOT EXISTS testing;'
-    - cd db && mysql -u root testing < db.sql
-    - cd db && mysql -u root testing < cats.sql 
-    - cd db && mysql -u root testing < qcats.sql
+    - make create-db
 
 script:
     - make test
