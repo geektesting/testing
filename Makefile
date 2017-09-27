@@ -1,9 +1,11 @@
-# composer
+# composer and install
 
-install: setup create-env autoload
+install: setup setup-js create-env autoload
 
 setup: 
 	composer install
+
+setup-js:
 	cd public/assets/ && npm install
 
 update:
@@ -49,9 +51,12 @@ remote-upstream:
 	git remote add upstream https://github.com/geektesting/testing.git
 	git remote -v
 
-get-last-changes:
+merge-upstream:
 	 git fetch upstream
 	 git checkout master
 	 git merge upstream/master
+
+get-last-changes: merge-upstream setup autoload
+
 
 .PHONY: test
