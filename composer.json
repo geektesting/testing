@@ -7,7 +7,8 @@
         "php": ">= 7",
         "twig/twig": "~2.0",
         "doctrine/instantiator": "^1.0.2",
-        "vlucas/phpdotenv": "^2.4@dev"
+        "vlucas/phpdotenv": "^2.4@dev",
+        "php-kit/php-server": "dev-master"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "894bbfaca69e5bc0879526cae5c66158",
+    "content-hash": "bbaa5751723ac6b0e77b94066c7c549b",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -57,6 +57,51 @@
                 "instantiate"
             ],
             "time": "2017-09-19T12:41:22+00:00"
+        },
+        {
+            "name": "php-kit/php-server",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-kit/php-server.git",
+                "reference": "d3722e581f9ae74ca31cae3c14b4415fae3e6476"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-kit/php-server/zipball/d3722e581f9ae74ca31cae3c14b4415fae3e6476",
+                "reference": "d3722e581f9ae74ca31cae3c14b4415fae3e6476",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/php-server"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cláudio Silva",
+                    "email": "claudio.silva@impactwave.com"
+                },
+                {
+                    "name": "Impactwave",
+                    "email": "impactwave@impactwave.com",
+                    "homepage": "http://impactwave.com"
+                }
+            ],
+            "description": "Makes the PHP's built-in web server easier and more practical to use",
+            "homepage": "https://github.com/php-kit/php-server",
+            "keywords": [
+                "Built-in",
+                "Integrated",
+                "development",
+                "embedded",
+                "server",
+                "web server"
+            ],
+            "time": "2017-01-24T16:50:19+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2726,6 +2771,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "vlucas/phpdotenv": 20,
+        "php-kit/php-server": 20,
         "codeception/codeception": 20
     },
     "prefer-stable": false,
