@@ -19,9 +19,16 @@ create-env:
 
 
 # test
+start-server:
+	./vendor/php-kit/php-server/bin/php-server start -p 8001 -r public/ --global
 
-test: 
+stop-server:
+	./vendor/php-kit/php-server/bin/php-server stop -p 8001
+
+codecept: 
 	./vendor/codeception/codeception/codecept run acceptance --debug
+
+test: start-server codecept stop-server
 
 lint:
 	./vendor/bin/phpcs ./* --ignore=vendor/,tests/ --extensions=php --colors --standard=PSR1 -v
@@ -33,7 +40,7 @@ deploy:
 	cd public/assets/ && npm run deploy
 
 watch:
-	cd public/assets/ && npm run watch
+	cd public/assets/ && npm run watch &
 
 
 # test js
