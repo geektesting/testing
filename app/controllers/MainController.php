@@ -22,10 +22,7 @@ class MainController extends BaseController
      */
     public function actionIndex()
     {
-        $this->render("index", [
-                "content" => "Hello, " . Config::$app["NAME"] . "! 😎"
-            ]
-        );
+        $this->render("index");
     }
 
     /**
