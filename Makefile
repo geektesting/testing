@@ -21,7 +21,7 @@ create-env:
 # test
 
 test: 
-	./vendor/codeception/codeception/codecept run acceptance
+	./vendor/codeception/codeception/codecept run acceptance --debug
 
 lint:
 	./vendor/bin/phpcs ./* --ignore=vendor/,tests/ --extensions=php --colors --standard=PSR1 -v
