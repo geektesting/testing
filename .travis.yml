@@ -1,9 +1,17 @@
 language: php
+
 php:
     - '7.1'
 
+services:
+    - mysql
+
 before_script:
     - make install
+    - mysql -e 'CREATE DATABASE IF NOT EXISTS testing;'
+    - cd db && mysql -u root -p"" testing < db.sql
+    - cd db && mysql -u root -p"" testing < cats.sql 
+    - cd db && mysql -u root -p"" testing < qcats.sql
 
 script:
     - make test
