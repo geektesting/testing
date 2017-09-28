@@ -1,9 +1,14 @@
 language: php
+
 php:
     - '7.1'
 
+services:
+    - mysql
+
 before_script:
     - make install
+    - make create-db
 
 script:
     - make test

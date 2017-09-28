@@ -6,42 +6,64 @@
  * Time: 19:56
  */
 
-namespace App\controllers;
-use App\models\Qcats;
+namespace App\Controllers;
+use App\Models\Qcats;
 
-class QcatsController extends BaseController {
-	
-    public function actionIndex() :void
+/**
+ * Class QcatsController
+ * @package Controllers
+ */
+class QcatsController extends BaseController
+{
+    /**
+     * actionIndex
+     */
+    public function actionIndex()
     {
-            echo $this->render("qcats", [
-                "cats" => Qcats::catList()
-            ]);
+        $this->render("qcats", [
+            "cats" => Qcats::catList()
+        ]);
     }
 
-    public function actionEdit() :void
+    /**
+     * actionEdit
+     */
+    public function actionEdit()
     {
-        echo $this->render("qcats_edit", [
+        $this->render("qcats_edit", [
             "catId" => $_GET["id"],
             "catName" => $_GET["cat_name"]
         ]);
     }
 
-    public function actionRename() :void
+    /**
+     * actionRename
+     */
+    public function actionRename()
     {
         Qcats::catRename( (int) $_GET["id"], (string) $_GET["cat_name"]);
     }
 
-    public function actionCreate() :void
+    /**
+     * actionCreate
+     */
+    public function actionCreate()
     {
-        echo $this->render("qcats_create", [ ]);
+        $this->render("qcats_create", [ ]);
     }
 
-    public function actionSave() :void
+    /**
+     * actionSave
+     */
+    public function actionSave()
     {
         Qcats::catCreate( (string) $_GET["cat_name"]);
     }
 
-    public function actionDelete() :void
+    /**
+     * actionDelete
+     */
+    public function actionDelete()
     {
         Qcats::catDelete($_GET["id"]);
     }

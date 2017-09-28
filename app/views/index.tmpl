@@ -1,124 +1,87 @@
 {% include "layouts/head.tmpl" %}
-
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img class="logo logo-q" src="/static/img/logo.jpg" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">О проекте</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Зарегистрироваться</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Войти" aria-label="Войти">
-                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Войти</button>
-            </form>
-        </div>
-    </div>
-    <!-- /.container -->
-</nav>
-<!-- /.navbar -->
-
-
-<header class="header d-flex flex-column justify-content-center align-items-center">
-    <div class="container">
-        <h1 class="display-2">GEEKTEST</h1>
-        <p class="lead">Самый удобный сервис прохождения тестов во Вселенной. Регистрируйся и проверяй себя!</p>
-    </div>
-</header>
-
-
+{% include "layouts/header.tmpl" %}
 <main class="main">
     <div class="container">
         <div class="row">
 
             <div class="col-lg-3 order-3 order-lg-1">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h4 class="card-title">Ваши тесты</h4>
-                        <a class="nav-link-green-block" href="/cats/">Категории тестов</a>
-                        <a class="nav-link-green-block" href="#">Тесты</a>
-                        <a class="nav-link-green-block" href="/qcats/">Категории вопросов</a>
-                        <a class="nav-link-green-block" href="#">Вопросы</a>
-                    </div>
-                </div>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h4 class="card-title">Категории тестов</h4>
-                        <a class="nav-link-green-block" href="#">Программирование</a>
-                        <a class="nav-link-green-block" href="#">Математика</a>
-                        <a class="nav-link-green-block" href="#">История</a>
-                        <a class="nav-link-green-block" href="#">Физика</a>
-                    </div>
-                </div>
-
-                <h3>Subscribe</h3>
-                <div class="block">
-                    <form method="post" action="/">
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                {% if isAuth %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title">Ваши тесты</h4>
+                            <a class="nav-link-green-block" href="/cats/">Категории тестов</a>
+                            <a class="nav-link-green-block" href="#">Тесты</a>
+                            <a class="nav-link-green-block" href="/qcats/">Категории вопросов</a>
+                            <a class="nav-link-green-block" href="#">Вопросы</a>
                         </div>
-                        <button type="submit" class="btn btn-success btn-block">Subscribe</button>
-                    </form>
-                </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title">Категории тестов</h4>
+                            <a class="nav-link-green-block" href="#">Программирование</a>
+                            <a class="nav-link-green-block" href="#">Математика</a>
+                            <a class="nav-link-green-block" href="#">История</a>
+                            <a class="nav-link-green-block" href="#">Физика</a>
+                        </div>
+                    </div>
+                    
+                {% endif %}
+                    <h3>Subscribe</h3>
+                    <div class="block">
+                        <form method="post" action="/">
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Subscribe</button>
+                        </form>
+                    </div>
+                
             </div>
 
             <div class="col-lg-6 col-md-8 order-1 order-lg-2">
+                {% if isAuth %}
                 <div class="card mb-4">
-
                     <div class="card-body">
                         <h4 class="card-title">Тесты</h4>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A quidem deserunt laboriosam ipsum, sapiente,
                             saepe ratione quisquam quam aliquam animi et. Soluta atque repudiandae maiores sed, itaque eos
                             assumenda dolor!</p>
-
                     </div>
                 </div>
 
                 <div class="card mb-4">
-
                     <div class="card-body">
-
                         <nav>
                             <a class="nav-link-green" href="#">Программирование/</a>
-
                             <span class="nav-link-green active">PHP</span>
                         </nav>
                     </div>
                 </div>
-
+                 {% endif %}
                 <div class="card mb-4">
-
+                {% if isAuth %}
                     <div class="card-body">
-                        <h4 class="card-title">Post title</h4>
+                        <h4 class="card-title">Уровни</h4>
                         <a class="nav-link-green-block" href="#">Простой уровень</a>
                         <a class="nav-link-green-block" href="#">Средний уровень</a>
                         <a class="nav-link-green-block" href="#">Сложный уровень</a>
-
                     </div>
+                {% else %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Здорово! А зачем это?</h4>
+                            <p class="card-text text-center">Хотите проверить свои знания? Сотни тестов к Вашим услугам! <br>
+                            Хотите получить подтверждение своим навыкам? Десятки тестов с сертификатами! <br>
+                            Хотите создать свои тесты? Проводить тестирование среди работников? При найме? При обучении? <br>
+                            Всё это доступно Вам уже сейчас!</p>
+                        </div>
+                    </div>
+                {% endif %}
                 </div>
-
-
             </div>
 
             <div class="col-lg-3 col-md-4 order-2 order-lg-3">
-
-
                 <h3>Tags Cloud</h3>
                 <div class="block">
                     <a class="badge badge-info" href="#">javascript</a>
@@ -128,10 +91,7 @@
                     <a class="badge badge-info" href="#">математика</a>
                     <a class="badge badge-info" href="#">история</a>
                 </div>
-
-
             </div>
-
         </div>
         <!-- /.row -->
     </div>

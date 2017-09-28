@@ -6,13 +6,14 @@
     "require": {
         "php": ">= 7",
         "twig/twig": "~2.0",
-        "doctrine/instantiator": "^1.0.2"
+        "doctrine/instantiator": "^1.0.2",
+        "vlucas/phpdotenv": "^2.4@dev",
+        "php-kit/php-server": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "phpunit/php-invoker": "*",
-        "phpunit/dbunit": "*",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "sebastian/diff": "^1.4",
+        "codeception/codeception": "dev-master"
     },
     "autoload": {
         "psr-4": {

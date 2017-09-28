@@ -20,9 +20,13 @@
             <div class="col-lg-4 col-md-6">
                 <h3>Navigation</h3>
                 <nav class="nav flex-column">
-                    <a class="nav-link-green-block" href="#">Главная</a>
+                    <a class="nav-link-green-block" href="/">Главная</a>
                     <a class="nav-link-green-block" href="#">О проекте</a>
-                    <a class="nav-link-green-block" href="#">Зарегистрироваться</a>
+                {% if isAuth %}
+                    <a class="nav-link-green-block" href="#">Личный кабинет</a>
+                {% else %}
+                    <a class="nav-link-green-block" href="#">Регистрация</a>
+                {% endif %}
                 </nav>
             </div>
         </div>

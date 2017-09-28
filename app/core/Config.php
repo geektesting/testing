@@ -10,8 +10,11 @@ namespace App;
 
 /**
  * Файл конфигурации приложения
+ * Class Config
+ * @package App
  */
-class Config {
+class Config 
+{
     public static $app;
     public static $db;
     public static $router;

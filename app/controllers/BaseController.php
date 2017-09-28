@@ -6,27 +6,38 @@
  * Time: 2:23
  */
 
-namespace App\controllers;
+namespace App\Controllers;
 
 use \App\Config;
 
 /**
  * Class BaseController
- * @package controllers
+ * @package Controllers
  */
 class BaseController
 {
+
+    /**
+     * TODO: добавить функцию, которая узнаёт авторизован ли пользователь
+     * isAuth
+     * @return bool 
+     */
+    protected function isAuth() : bool
+    {
+        return true;
+    }
     /**
      * Метод рендеринга
      * @param string $template - имя шаблона
      * @param array $data - массив данных
      */
-    public function render(string $template, array $data): void
+    public function render(string $template, array $data = [])
     {
         $twig = new \Twig_Environment(
             new \Twig_Loader_Filesystem(Config::$app["VIEWS"]), []
         );
 
-        echo $twig->render($template . '.tmpl', $data);
+        $isAuth = ["isAuth" => $this->isAuth()];
+        echo $twig->render($template . '.tmpl', array_merge($data, $isAuth));
     }
 }

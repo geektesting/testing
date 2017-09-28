@@ -4,6 +4,10 @@ namespace App\Core;
 use App\Config;
 use \PDO;
 
+/**
+ * Class DB
+ * @package Core
+ */
 class DB
 {
     use Singleton;
@@ -11,9 +15,10 @@ class DB
     protected $conn;
 
     /**
+     * GetConnection
      * @return PDO
      */
-    public function getConnection()
+    public function getConnection() : PDO
     {
         if (is_null($this->conn)) {
             try {
@@ -33,32 +38,31 @@ class DB
     }
 
     /**
-     * @param $sql
-     * @param array $params
-     * @return \PDOStatement
+     * Query
+     * @param string $sql
+     * @return \PDOStatement 
      */
-    public function query($sql, $params = [])
+    public function query(string $sql)
     {
-        $smtp = $this->getConnection()->prepare($sql);
-        $smtp->execute($params);
-        return $smtp;
+        return $this->getConnection()->prepare($sql);
     }
 
     /**
      * Выборка всех записей
-     * @param $sql
+     * @param string $sql
      * @param array $params
      * @return array
      */
-    public function fetchAll($sql, $params = [])
+    public function fetchAll(string $sql, array $params = []) : array
     {
-        $smtp = $this->query($sql, $params);
+        $smtp = $this->query($sql);
+        $smtp->execute($params);
         return $smtp->fetchAll();
     }
 
     /**
      * Выборка одной записи
-     * @param $sql
+     * @param string $sql
      * @param array $params
      * @return mixed
      */
@@ -69,34 +73,37 @@ class DB
 
     /**
      * Выборка объекта
-     * @param $sql
+     * @param string $sql
      * @param array $params
-     * @param $class
+     * @param mixed $class
      * @return mixed
      */
-    public function fetchObject($sql, $params, $class)
+    public function fetchObject(string $sql, array $params, mixed $class) : mixed
     {
-        $smtp = $this->query($sql, $params);
+        $smtp = $this->query($sql);
+        $smtp->execute($params);
         $smtp->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
         return $smtp->fetch();
     }
 
     /**
      * Запросы наизменение данных
-     * @param $sql
+     * @param string $sql
      * @param array $params
      * @return bool
      */
-    public function execute($sql, $params = [])
+    public function execute(string $sql, array $params = []) : bool
     {
-        $this->query($sql, $params);
+        $smtp = $this->query($sql);
+        $smtp->execute($params);
         return true;
     }
 
     /**
+     * PrepareDnsString
      * @return string
      */
-    protected function prepareDnsString()
+    protected function prepareDnsString() : string
     {
         return sprintf(
             "%s:host=%s;dbname=%s;charset=UTF8",
