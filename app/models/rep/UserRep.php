@@ -14,6 +14,18 @@ class UserRep extends AbstractRep
 
     /**
      * @param string $login
+     * @return User
+     */
+    public function getByLogin(string $login)
+    {
+        return $this->db->fetchObject(
+            "SELECT u.* FROM users u
+             WHERE login = ?", [$login], $this->nestedClass
+        );
+    }
+
+    /**
+     * @param string $login
      * @param string $pass
      * @return User
      */
@@ -33,6 +45,18 @@ class UserRep extends AbstractRep
     {
         return $this->db->fetchObject(
             "SELECT u.* FROM users u WHERE u.id = ?", [$id],  $this->nestedClass
+        );
+    }
+
+    /**
+     * @param string $login
+     * @param string $pass
+     * @return bool
+     */
+    public function create(string $login, string $pass) : bool
+    {
+        return $this->db->execute(
+            "INSERT INTO users (login, password) values(?, ?)", [$login, md5($pass)]
         );
     }
 }
