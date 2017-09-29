@@ -10,21 +10,22 @@ class SessionsRep extends AbstractRep
 
     /**
      * Очистка неиспользуемых сессий
-     * @return mixed 
+     * @return bool
      */
-    public function clearSessions() : mixed
+    public function clearSessions() : bool
     {
         return $this->db->execute(
-            sprintf("DELETE FROM sessions WHERE last_update < %s", date('Y-m-d H:i:s', time() - 60 * 20))
+            "DELETE FROM sessions WHERE last_update < ?",
+            [date('Y-m-d H:i:s', time() - 60 * 20)]
         );
     }
 
     /**
      * dropSession
-     * @param int $sid 
-     * @return mixed 
+     * @param string $sid
+     * @return bool
      */
-    public function dropSession(int $sid) : mixed
+    public function dropSession(string $sid) : bool
     {
         return $this->db->execute(
             "DELETE FROM sessions WHERE sid = ?",
@@ -35,11 +36,11 @@ class SessionsRep extends AbstractRep
     /**
      * createNew
      * @param int $userId 
-     * @param int $sid 
+     * @param string $sid
      * @param string $timeLast 
-     * @return mixed 
+     * @return bool
      */
-    public function createNew(int $userId, int $sid, string $timeLast) : mixed
+    public function createNew(int $userId, string $sid, string $timeLast) : bool
     {
         return $this->db->execute(
             "INSERT INTO sessions(user_id, sid, last_update) VALUES (? ,? , ?)",
@@ -49,11 +50,11 @@ class SessionsRep extends AbstractRep
 
     /**
      * updateLastTime
-     * @param int $sid 
+     * @param string $sid
      * @param string $time 
-     * @return mixed 
+     * @return bool
      */
-    public function updateLastTime(int $sid, string $time = null) : mixed
+    public function updateLastTime(string $sid, string $time = null) : bool
     {
         if (is_null($time)) {
             $time = date('Y-m-d H:i:s');
@@ -63,11 +64,10 @@ class SessionsRep extends AbstractRep
     }
 
     /**
-     * getUidBySid
-     * @param int $sid 
-     * @return mixed 
+     * @param string $sid
+     * @return mixed
      */
-    public function getUidBySid(int $sid) : mixed
+    public function getUidBySid(string $sid)
     {
         return $this->db->fetchOne(
             "SELECT user_id FROM sessions WHERE sid = ?", [$sid]

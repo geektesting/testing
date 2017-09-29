@@ -10,6 +10,9 @@ use App\Core\DB;
  */
 abstract class AbstractRep 
 {
+    /**
+     * @var \App\Core\DB
+     */
     protected $db;
 
     /**
