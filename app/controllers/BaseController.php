@@ -9,6 +9,7 @@
 namespace App\Controllers;
 
 use \App\Config;
+use App\Models\User;
 
 /**
  * Class BaseController
@@ -16,15 +17,14 @@ use \App\Config;
  */
 class BaseController
 {
-
     /**
-     * TODO: добавить функцию, которая узнаёт авторизован ли пользователь
      * isAuth
      * @return bool 
      */
     protected function isAuth() : bool
     {
-        return true;
+        $user = (new User())->getCurrent();
+        return !!$user;
     }
     /**
      * Метод рендеринга

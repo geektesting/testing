@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/static/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/static/img/favicons/safari-pinned-tab.svg" color="#266aed">
+    <meta name="apple-mobile-web-app-title" content="Testing App">
+    <meta name="application-name" content="Testing App">
+    <meta name="theme-color" content="#ffffff">    <title>{{ title }}</title>
+</head>
+<body>
+<h1>Аккаунт пользователя</h1>
+<p>User: {{ user.getId }} - {{ user.getLogin }}</p>
+<p><a href="/">Main page</a></p>
+
+<p><a href="/auth/logout">Logout</a></p>
+</body>
+</html>
