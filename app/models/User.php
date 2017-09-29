@@ -53,4 +53,21 @@ class User
         }
         return null;
     }
+
+    /**
+     * @param string $login
+     * @param string $pass
+     * @return bool
+     */
+    public static function register(string $login, string $pass) : bool
+    {
+        $userRep = new UserRep();
+        $user = $userRep->getByLogin($login);
+
+        if ($user) {
+            return false;
+        }
+
+        return $userRep->create($login, $pass);
+    }
 }

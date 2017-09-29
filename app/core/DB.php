@@ -95,8 +95,7 @@ class DB
     public function execute(string $sql, array $params = []) : bool
     {
         $smtp = $this->query($sql);
-        $smtp->execute($params);
-        return true;
+        return $smtp->execute($params);
     }
 
     /**

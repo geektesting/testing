@@ -44,7 +44,7 @@ class AuthController extends BaseController
                 return;
             }
         }
-        // ToDo: Надо показывать ошибки вместе редиректа
+        // ToDo: Надо показывать ошибки вместо редиректа
         App::getInstance()->redirect('auth');
     }
 
