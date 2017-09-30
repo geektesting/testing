@@ -1,8 +1,8 @@
 <?php
-
 $I = new AcceptanceTester($scenario);
 $I->wantToTest('Questions page integration');
-$I->amOnPage('/');
+
+require(__DIR__ . '/../../_support/loginAction.php');
 
 $I->click('Категории вопросов');
 $I->see('Создать');

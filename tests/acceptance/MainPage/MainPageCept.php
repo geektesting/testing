@@ -1,8 +1,8 @@
 <?php
-
 $I = new AcceptanceTester($scenario);
 $I->wantToTest('main page');
-$I->amOnPage('/');
+
+require(__DIR__ . '/../../_support/loginAction.php');
 
 $I->see('GEEKTEST');
 $I->see('Выйти');
