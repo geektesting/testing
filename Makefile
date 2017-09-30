@@ -26,7 +26,7 @@ create-db:
 
 # test
 start-server:
-	./vendor/php-kit/php-server/bin/php-server start -p 8001 -r public/ --global
+	./vendor/php-kit/php-server/bin/php-server start -p 8001 -r public/ --global || :
 
 stop-server:
 	./vendor/php-kit/php-server/bin/php-server stop -p 8001
@@ -46,7 +46,7 @@ deploy:
 	cd public/assets/ && npm run deploy
 
 watch:
-	cd public/assets/ && npm run watch &
+	cd public/assets/ && npm run watch
 
 
 # test js
