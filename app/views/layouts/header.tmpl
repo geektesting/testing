@@ -18,17 +18,17 @@
                 </li>
                 <li class="nav-item">
                     {% if isAuth %}
-                        <a class="nav-link" href="#">Личный кабинет</a> 
+                        <a class="nav-link" href="/account/">Личный кабинет</a>
                     {% else %}
-                        <a class="nav-link" href="#">Регистрация</a> 
+                        <a class="nav-link" href="/account/register">Регистрация</a>
                     {% endif %}
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 {% if isAuth %}
-                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Выйти</button> 
+                    <a class="btn btn-outline-warning my-2 my-sm-0" href="/auth/logout">Выйти</a>
                 {% else %}
-                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Войти</button> 
+                    <a class="btn btn-outline-warning my-2 my-sm-0" href="/auth">Войти</a>
                 {% endif %}
             </form>
         </div>

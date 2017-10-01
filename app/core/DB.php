@@ -28,7 +28,7 @@ class DB
                     Config::$db['DB_PASS']
                 );
             } catch (\PDOException $e) {
-                exit("PDO connection error!");
+                exit("PDO connection error: ".$e->getMessage());
             }
 
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -78,7 +78,7 @@ class DB
      * @param mixed $class
      * @return mixed
      */
-    public function fetchObject(string $sql, array $params, mixed $class) : mixed
+    public function fetchObject(string $sql, array $params, string $class)
     {
         $smtp = $this->query($sql);
         $smtp->execute($params);
@@ -95,8 +95,7 @@ class DB
     public function execute(string $sql, array $params = []) : bool
     {
         $smtp = $this->query($sql);
-        $smtp->execute($params);
-        return true;
+        return $smtp->execute($params);
     }
 
     /**

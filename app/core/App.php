@@ -30,12 +30,22 @@ class App
         $controller = $router->getController();
         $action     = $router->getAction();
 
+        session_start();
+
         // вызываем метод, если он существует
         if (class_exists($controller) && method_exists($controller, $action)) {
             (new $controller())->$action();
         } else {
             (new BaseController())->render('errors/404', []);
         }
+    }
+
+    /**
+     * @param string $url
+     */
+    public function redirect(string $url = '') : void
+    {
+        header("Location: /{$url}");
     }
 }
 

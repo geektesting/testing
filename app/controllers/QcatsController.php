@@ -20,7 +20,7 @@ class QcatsController extends BaseController
      */
     public function actionIndex()
     {
-        $this->render("qcats", [
+        $this->render("qcats/qcats", [
             "cats" => Qcats::catList()
         ]);
     }
@@ -30,7 +30,7 @@ class QcatsController extends BaseController
      */
     public function actionEdit()
     {
-        $this->render("qcats_edit", [
+        $this->render("qcats/qcats_edit", [
             "catId" => $_GET["id"],
             "catName" => $_GET["cat_name"]
         ]);
@@ -49,7 +49,7 @@ class QcatsController extends BaseController
      */
     public function actionCreate()
     {
-        $this->render("qcats_create", [ ]);
+        $this->render("qcats/qcats_create", [ ]);
     }
 
     /**
