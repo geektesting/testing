@@ -108,7 +108,7 @@ INC;
     {
 
         // Перезагружаем страницу создания теста, если не заполнены нужные поля
-        if ( $params["quizName"] == 0 || !isset($params["catName"]) || !isset($params["qCats"])){
+        if ( $params["quizName"] == "" || !isset($params["catName"]) || !isset($params["qCats"])){
             header('Location: /quizes/create/');
             return;
         }
