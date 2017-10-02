@@ -81,7 +81,7 @@ module.exports = {
                         presets: [
                             'flow',
                             'stage-0',
-                            'env'
+                            'env',
                         ],
                     },
                 },
@@ -90,16 +90,16 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
+                    use: ['css-loader', 'sass-loader'],
                 }),
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             {
                 test: /\.(jpe?g|png|gif|svg|woff2?)$/,
                 use: [{
                         loader: 'url-loader',
                         options: {
-                            limit: 40000
+                            limit: 40000,
                         },
                     },
                     'image-webpack-loader',

@@ -9,25 +9,29 @@
 
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <h3>Contacts</h3>
-                <address>
-                    <b>GEEKTEST, Inc.</b><br> 630129 Market St, Suite 900<br> Москва
-                    <br> P: (495) 456-7890
-                </address>
+            <div class="col-lg-4 col-md-6 d-flex">
+                <div class="m-auto">
+                    <h3>Contacts</h3>
+                    <address>
+                        <b>GEEKTEST, Inc.</b><br> 630129 Market St, Suite 900<br> Москва
+                        <br> P: (495) 456-7890
+                    </address>
+                </div>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <h3>Navigation</h3>
-                <nav class="nav flex-column">
-                    <a class="nav-link-green-block" href="/">Главная</a>
-                    <a class="nav-link-green-block" href="#">О проекте</a>
-                {% if isAuth %}
-                    <a class="nav-link-green-block" href="#">Личный кабинет</a>
-                {% else %}
-                    <a class="nav-link-green-block" href="#">Регистрация</a>
-                {% endif %}
-                </nav>
+            <div class="col-lg-4 col-md-6 d-flex">
+                <div class="ml-auto">
+                    <h3>Navigation</h3>
+                    <nav class="nav flex-column">
+                        <a class="nav-link-green-block" href="/">Главная</a>
+                        <a class="nav-link-green-block" href="#">О проекте</a>
+                    {% if isAuth %}
+                        <a class="nav-link-green-block" href="#">Личный кабинет</a>
+                    {% else %}
+                        <a class="nav-link-green-block" href="#">Регистрация</a>
+                    {% endif %}
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
