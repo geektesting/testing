@@ -1,0 +1,242 @@
+{% include "layouts/head.tmpl" %}
+{% include "layouts/header.tmpl" %}
+
+<main class="main">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3 order-3 order-lg-1">
+                {% if isAuth %}
+				
+				{% include "quizes/your_quizes.tmpl" %}
+
+                {% endif %}
+			</div>
+
+            <div class="col-lg-9 col-md-12 order-1 order-lg-2">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Редактирование теста</h4>
+						<ul class="nav nav-pills nav-fill" id="quizTab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="left-tab" data-toggle="tab" href="#leftTab" 
+								role="tab" aria-controls="left" aria-expanded="true">Настройки</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="right-tab" data-toggle="tab" href="#rightTab" 
+								role="tab" aria-controls="right">Выбор вопросов</a>
+							</li>
+						</ul>
+						<form action="/quizes/save/" method="POST">
+						<div class="tab-content" id="quizTabContent">
+							<div class="tab-pane fade show active" id="leftTab" role="tabpanel" aria-labelledby="left-tab">
+							
+								<div class="row">
+									<div class="col-lg-6 col-md-6 order-1">
+										<div class="form-group">
+											<label for="quizName">Название</label>
+											<input type="hidden" class="form-control" name="quizId" value="{{quiz.id}}">
+											<input type="text" class="form-control" name="quizName" value="{{quiz.name}}">
+										</div>
+									</div>
+							
+									<div class="col-lg-6 col-md-6 order-2">
+										<div class="form-group">
+											<label for="catName">Категория</label>
+											<select class="form-control" name="catName">
+											{% for cat in cats %}
+												{% if cat.id == quiz.cat %}
+													<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
+												{% else %}
+													<option value="{{ cat.id }}">{{ cat.cat_name }}</option>
+												{% endif %}
+											{% endfor %}
+											</select>
+										</div>
+									</div>
+									
+								</div>
+								<div class="row">
+
+									<div class="col-lg-6 col-md-6 order-1">
+										<div class="form-group">
+											<label for="hidden">Закрытый тест</label>
+											<select class="form-control" name="hidden">
+												{% if quiz.hidden %}
+													<option value="1" selected>Да</option>
+													<option value="0">Нет</option>
+												{% else %}
+													<option value="0" selected>Нет</option>
+													<option value="1">Да</option>
+												{% endif %}
+											</select>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 order-2">
+										<div class="form-group">
+											<label for="newToken">Ссылка на тест</label>
+											<input type="hidden" name="token" value="{{quiz.hidden}}">
+												{% if quiz.hidden %}
+											<input type="text" class="form-control" name="newToken" value="http://gbtesting.com/quiz/?token={{quiz.hidden}}">
+												{% else %}
+											<input type="text" class="form-control" name="newToken" value="">
+												{% endif %}
+										</div>
+									</div>
+									
+								</div>
+								<div class="row">
+								
+									<div class="col-lg-6 col-md-6 order-1">
+										<div class="form-group">
+											<label for="status">Статус</label>
+											<select class="form-control" name="status">
+												{% if quiz.status %}
+													<option value="1" selected>Опубликован</option>
+													<option value="0">Скрыт</option>	
+												{% else %}
+													<option value="0" selected>Скрыт</option>
+													<option value="1">Опубликован</option>	
+												{% endif %}
+											</select>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 order-2">
+										<div class="form-group">
+											<label for="isRandom">Случайные вопросы</label>
+											<select class="form-control" name="isRandom">
+												{% if quiz.isRandom %}
+													<option value="1" selected>Да</option>
+													<option value="0">Нет</option>	
+												{% else %}
+													<option value="0" selected>Нет</option>
+													<option value="1">Да</option>	
+												{% endif %}
+											</select>
+										</div>
+									</div>
+									
+								</div>
+							<div class="row">
+							
+									<div class="col-lg-4 col-md-4 order-1">
+										<div class="form-group">
+											<label for="passScore">Проходной балл (%)</label>
+											<input type="text" class="form-control" name="passScore" value="{{quiz.passScore}}">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 order-2">
+										<div class="form-group">
+											<label for="time">Время на тест (мин)</label>
+											<input type="text" class="form-control" name="time" value="{{quiz.time}}">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 order-3">
+										<div class="form-group">
+											<label for="timeGap">Промежуток (дней)</label>
+											<input type="text" class="form-control" name="timeGap" value="{{quiz.timeGap}}">
+										</div>
+									</div>
+
+							</div>
+							<div class="form-group">
+								<label for="description">Описание</label>
+								<textarea class="form-control" name="description" rows="10">{{quiz.description}}</textarea>
+							</div>
+
+							</div>
+							<div class="tab-pane fade" id="rightTab" role="tabpanel" aria-labelledby="right-tab">
+							{% for qCat,qNumber in quiz.questions%}
+							{% if loop.index==1 %}
+								<div class="row">
+								
+									<div class="col-lg-6 col-md-6 order-1">
+										<div class="form-group">
+											<label for="qCats">Категория вопросов</label>
+											<select class="form-control" name="qCats[]">
+												{% for cat in qcats %}
+													{% if cat.id == qCat %}
+														<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
+													{% else %}
+														<option value="{{ cat.id }}">{{ cat.cat_name }}</option>
+													{% endif %}
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<script>
+										function removeSelector (self){
+											$(self.parentNode.parentNode.parentNode).remove();	
+										}
+										function addSelector (){
+											$.ajax({
+												url: "/quizes/add/",
+												success: function (data) {
+													$("#rightTab .row").last().after(data);
+												}
+											});
+										}
+									</script>
+									<div class="col-lg-6 col-md-6 order-2">
+										<div class="qNumber">
+											<div class="form-group">
+												<label for="qNumber">Количество вопросов</label>
+												<input type="text" class="form-control" name="qNumber[]" value="{{qNumber}}">
+											</div>
+										</div>
+										<div class="plus-minus">
+											<a href="javascript:void()" onClick="addSelector()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+										</div>
+									</div>
+									
+								</div>
+							{% else %}
+								<div class="row">
+								
+									<div class="col-lg-6 col-md-6 order-1">
+										<div class="form-group">
+											<select class="form-control" name="qCats[]">
+												{% for cat in qcats %}
+													{% if cat.id == qCat %}
+														<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
+													{% else %}
+														<option value="{{ cat.id }}">{{ cat.cat_name }}</option>
+													{% endif %}
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 order-2">
+										<div class="qNumber">
+											<div class="form-group">
+												<input type="text" class="form-control" name="qNumber[]" value="{{qNumber}}">
+											</div>
+										</div>
+										<div class="plus-minus">
+											<a href="javascript:void()" onClick="removeSelector(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
+										</div>
+									</div>
+									
+								</div>
+								
+							{% endif %}
+							{% endfor %}
+							</div>
+						</div>
+
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</main>
+<!-- /.main -->
+
+{% include "layouts/footer.tmpl" %}
