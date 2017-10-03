@@ -10,9 +10,16 @@ use App\Models\Rep\UserRep;
  */
 class User
 {
+    const USER = 0;
+    const MODERATOR = 1;
+    const ADMINISTRATOR = 2;
+    const ROOT = 3;
+    const DEVELOPER = 4;
+
     protected $id;
     protected $login;
     protected $password;
+	protected $role;
 
     /**
      * @return mixed
@@ -20,6 +27,14 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 
     /**

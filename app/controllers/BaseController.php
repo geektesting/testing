@@ -26,6 +26,17 @@ class BaseController
         $user = (new User())->getCurrent();
         return !!$user;
     }
+
+    /**
+     * getUserRole
+     * @return int|null
+     */
+    protected function getUserRole()
+    {
+        $user = (new User())->getCurrent();
+        return ($user) ? $user->getRole() : null;
+    }
+
     /**
      * Метод рендеринга
      * @param string $template - имя шаблона
