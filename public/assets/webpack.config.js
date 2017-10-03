@@ -67,7 +67,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../', 'static', 'js'),
         filename: 'app.js',
-        publicPath: path.resolve(__dirname, 'static', 'js'),
+        publicPath: path.resolve(__dirname, 'static'),
     },
     module: {
         rules: [
