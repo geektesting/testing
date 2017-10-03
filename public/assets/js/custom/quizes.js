@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-
+/*eslint-disable */
 window.addSelector = () => {
 	$.ajax({
 		url: '/quizes/add/',
