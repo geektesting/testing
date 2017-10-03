@@ -21,6 +21,8 @@ class App
      */
     public function run()
     {
+
+		session_start();
 		// Добавляем маршруты
 		$router = require(__DIR__ . '/../../config/routes.config.php');
 		// Запускаем роутер

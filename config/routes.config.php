@@ -20,7 +20,7 @@ $router->get('/about', 'Main@About');
 /**
  * Авторизация/регистрация
  */
-// Посредник
+
 //	$router->before('GET|POST', '/account/.*', function() {
 //		if (!isset($_SESSION['isAuth'])) {
 //			header('location: /auth/login');
