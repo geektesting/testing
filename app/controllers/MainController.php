@@ -26,7 +26,7 @@ class MainController extends BaseController
     }
 
     /**
-     * ActionAbout
+     * ActionAbout - проверка вызова статического метода
      */
     public static function actionAbout()
     {
