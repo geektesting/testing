@@ -1,28 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head lang="ru">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/static/img/favicons/manifest.json">
-    <link rel="mask-icon" href="/static/img/favicons/safari-pinned-tab.svg" color="#266aed">
-    <meta name="apple-mobile-web-app-title" content="Testing App">
-    <meta name="application-name" content="Testing App">
-    <meta name="theme-color" content="#ffffff">
-    <title>{{ title }}</title>
-</head>
-<body>
-<h1>Регистрация</h1>
+{% include "layouts/head.tmpl" %}
+{% include "layouts/header.tmpl" %}
+    <main class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 order-1 order-lg-2">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h1 class="card-title text-center">Регистрация</h1>
+                             <div class="d-flex container">
+                                <form action="/account/register" class="m-auto" method="post">
+                                    <div class="row justify-content-center">
+                                        <label for="">Введите логин</label>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="form-group">
+                                            <div>
+                                                <input type="text" name="login" placeholder="Логин" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <label for="">Введите ваш e-mail</label>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="form-group">
+                                            <div>
+                                                <input class="email" type="text" name="e_mail" placeholder="e-mail" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <label for="">Введите пароль (не менее 6 символов)</label>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="form-group">
+                                            <div>
+                                                <input type="password" name="pass" placeholder="Пароль" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <label for="">Подтвердите пароль</label>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="form-group">
+                                            <div>
+                                                <input type="password" name="pass2" placeholder="Пароль" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="form-group">
+                                            <div>
+                                                <input class="btn btn-info" type="submit" value="Вход">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <a class="nav-link-green-block text-center" href="/">Главная страница</a>
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container -->
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </main>
+    <!-- /.main -->
 
-<form action="/account/register" method="post">
-    <input type="text" name="login" placeholder="Логин" required=""/>
-    <input type="password" name="pass"  placeholder="Пароль" required="">
-    <input type="submit" value="Войти">
-</form>
-<p><a href="/auth">Авторизация</a></p>
-<p><a href="/">Главная страница</a></p>
-</body>
-</html>
+    {% include "layouts/footer.tmpl" %}

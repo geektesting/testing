@@ -1,15 +1,15 @@
 import $ from 'jquery';
 
 /*eslint-disable */
-function addSelector (){
+window.addSelector = () => {
 	$.ajax({
-		url: "/quizes/add/",
+		url: '/quizes/add/',
 		success: function (data) {
-			$("#rightTab .row").last().after(data);
+			$('#rightTab .row').last().after(data);
 		}
 	});
-}
+};
 
-function removeSelector (self){
-	$(self.parentNode.parentNode.parentNode).remove();	
-}
+window.removeSelector = (self) => {
+	$(self.parentNode.parentNode.parentNode).remove();
+};

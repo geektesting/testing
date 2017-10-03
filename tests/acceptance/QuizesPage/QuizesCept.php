@@ -1,11 +1,11 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantToTest('Questions page works');
+$I->wantToTest('Quizes page works');
 
 require(__DIR__ . '/../../_support/loginAction.php');
 
-$I->amOnPage('/qcats');
+$I->amOnPage('/quizes');
 
-$I->see('Категории вопросов');
+$I->see('Тесты');
 $I->see('Создать');
 $I->dontSee('Tags Cloud');

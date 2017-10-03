@@ -15,7 +15,7 @@ class AccountController extends BaseController
     /**
      * Страница личного кабинета
      */
-    public function actionIndex() : void
+    public function actionIndex()
     {
         if ($user = (new User())->getCurrent()) {
             $this->render("account/index", [
@@ -30,7 +30,7 @@ class AccountController extends BaseController
     /**
      * Страница регистрации
      */
-    public function actionRegister() : void
+    public function actionRegister()
     {
         if ($this->isAuth()) {
             App::getInstance()->redirect('account');

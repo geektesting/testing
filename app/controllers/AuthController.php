@@ -14,7 +14,7 @@ class AuthController extends BaseController
     /**
      * Страница логина
      */
-    public function actionIndex() : void
+    public function actionIndex()
     {
         if ($this->isAuth()) {
             App::getInstance()->redirect('account');
@@ -30,7 +30,7 @@ class AuthController extends BaseController
      * ToDo: Добавить поддержку Ajax запросов
      * Обработка формы авторизации
      */
-    public function actionLogin() : void
+    public function actionLogin()
     {
         if ($this->isAuth()) {
             App::getInstance()->redirect('account');
@@ -51,7 +51,7 @@ class AuthController extends BaseController
     /**
      * Логаут
      */
-    public function actionLogout() : void
+    public function actionLogout()
     {
         if ($this->isAuth()) {
             (new Auth())->logout();
