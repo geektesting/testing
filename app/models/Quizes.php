@@ -88,7 +88,7 @@ INC;
 											</div>
 										</div>
 										<div class="plus-minus">
-											<a href="javascript:void()" onClick="removeSelector(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
+											<a href="javascript:void(0)" onClick="removeSelector(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
 										</div>
 									</div>
 								</div>

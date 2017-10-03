@@ -15,7 +15,7 @@ class Auth
     /**
      * Выход из сессии
      */
-    public function logout() : void
+    public function logout()
     {
         $sid =  isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : null;
         if(!is_null($sid)) {
