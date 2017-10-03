@@ -28,7 +28,7 @@ class MainController extends BaseController
     /**
      * ActionAbout
      */
-    public function actionAbout()
+    public static function actionAbout()
     {
         echo 'Hello from ' . __METHOD__;
     }
