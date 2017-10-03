@@ -43,7 +43,7 @@ class App
     /**
      * @param string $url
      */
-    public function redirect(string $url = '') : void
+    public function redirect(string $url = '')
     {
         header("Location: /{$url}");
     }

@@ -166,19 +166,6 @@
 											</select>
 										</div>
 									</div>
-									<script>
-										function removeSelector (self){
-											$(self.parentNode.parentNode.parentNode).remove();	
-										}
-										function addSelector (){
-											$.ajax({
-												url: "/quizes/add/",
-												success: function (data) {
-													$("#rightTab .row").last().after(data);
-												}
-											});
-										}
-									</script>
 									<div class="col-lg-6 col-md-6 order-2">
 										<div class="qNumber">
 											<div class="form-group">
@@ -187,7 +174,7 @@
 											</div>
 										</div>
 										<div class="plus-minus">
-											<a href="javascript:void()" onClick="addSelector()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+											<a href="javascript:void(0)" onClick="addSelector()"><i class="fa fa-plus" aria-hidden="true"></i></a>
 										</div>
 									</div>
 									
@@ -216,7 +203,7 @@
 											</div>
 										</div>
 										<div class="plus-minus">
-											<a href="javascript:void()" onClick="removeSelector(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
+											<a href="javascript:void(0)" onClick="removeSelector(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
 										</div>
 									</div>
 									
