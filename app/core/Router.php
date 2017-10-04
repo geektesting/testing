@@ -84,7 +84,7 @@ class Router
 	 */
 	public function any($pattern, $fn) : void
 	{
-		$this->match('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', $pattern, $fn);
+		$this->match('GET|POST', $pattern, $fn);
 	}
 	/**
 	 * Метод GET
@@ -105,47 +105,6 @@ class Router
 	public function post($pattern, $fn) : void
 	{
 		$this->match('POST', $pattern, $fn);
-	}
-	/**
-	 * Метод PATCH
-	 *
-	 * @param string $pattern - шаблон типа `/user/info`
-	 * @param object|callable $fn
-	 */
-	public function patch($pattern, $fn) : void
-	{
-		$this->match('PATCH', $pattern, $fn);
-	}
-	/**
-	 * Метод DELETE
-	 *
-	 * @param string $pattern - шаблон типа `/user/info`
-	 * @param object|callable $fn
-	 */
-	public function delete($pattern, $fn) : void
-	{
-		$this->match('DELETE', $pattern, $fn);
-	}
-	/**
-	 * Метод PUT
-	 *
-	 * @param string $pattern - шаблон типа `/user/info`
-	 * @param object|callable $fn
-	 */
-	public function put($pattern, $fn) : void
-	{
-		$this->match('PUT', $pattern, $fn);
-	}
-
-	/**
-	 * Метод OPTIONS
-	 *
-	 * @param string $pattern - шаблон типа `/user/info`
-	 * @param object|callable $fn
-	 */
-	public function options($pattern, $fn) : void
-	{
-		$this->match('OPTIONS', $pattern, $fn);
 	}
 
 	/**
@@ -194,12 +153,6 @@ class Router
 		if ($_SERVER['REQUEST_METHOD'] == 'HEAD') {
 			ob_start();
 			$method = 'GET';
-		} // Если это метод POST, то проверяем, присутствует ли переопределяющий заголовок
-		elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$headers = $this->getRequestHeaders();
-			if (isset($headers['X-HTTP-Method-Override']) && in_array($headers['X-HTTP-Method-Override'], ['PUT', 'DELETE', 'PATCH'])) {
-				$method = $headers['X-HTTP-Method-Override'];
-			}
 		}
 		return $method;
 	}

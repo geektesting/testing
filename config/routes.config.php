@@ -14,11 +14,13 @@ $router->set404(function () {
 	echo '404 страница не найдена!';
 });
 
+/**
+ * Главная
+ */
 $router->get('/', 'Main@Index');
-$router->get('/about', 'Main@About');
 
 /**
- * Авторизация/регистрация
+ * Личный кабинет
  */
 
 //	$router->before('GET|POST', '/account/.*', function() {
@@ -26,10 +28,14 @@ $router->get('/about', 'Main@About');
 //			header('location: /auth/login');
 //		}
 //	});
-$router->get( '/account', 'Account@Index');
-$router->get( '/auth', 'Auth@Index');
-$router->match('GET|POST', '/account/register', 'Account@Register');
-$router->match('GET|POST', '/auth/login', 'Auth@Login');
+$router->get('/account', 'Account@Index');
+
+/**
+ * Авторизация/регистрация
+ */
+$router->any('/account/register', 'Account@Register');
+$router->get('/auth', 'Auth@Index');
+$router->any('/auth/login', 'Auth@Login');
 $router->get('/auth/logout', 'Auth@Logout');
 
 /**
@@ -37,6 +43,7 @@ $router->get('/auth/logout', 'Auth@Logout');
  */
 $router->party('/cats', function() use ($router) {
 	$router->get('/', 'Cats@Index');
+	$router->get('/create', 'Cats@Create');
 	$router->get('/edit', 'Cats@Edit');
 	$router->get('/editsave', 'Cats@Editsave');	// GET ??
 	$router->get('/delete', 'Cats@Delete');		// GET ??
@@ -48,7 +55,8 @@ $router->party('/cats', function() use ($router) {
 $router->party('/qcats', function() use ($router) {
 	$router->get('/', 'Qcats@Index');
 	$router->get('/create', 'Qcats@Create');
-	$router->get('/save', 'Qcats@Save'); 		// GET ??
+	$router->get('/rename', 'Qcats@Rename');
+	$router->get('/save', 'Qcats@Save');			// GET ??
 	$router->get('/edit', 'Qcats@Edit');			// GET ??
 	$router->get('/delete', 'Qcats@Delete');		// GET ??
 });
