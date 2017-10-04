@@ -44,6 +44,7 @@ $router->get('/auth/logout', 'Auth@Logout');
 $router->party('/cats', function() use ($router) {
 	$router->get('/', 'Cats@Index');
 	$router->get('/create', 'Cats@Create');
+	$router->get('/save', 'Cats@Save');
 	$router->get('/edit', 'Cats@Edit');
 	$router->get('/editsave', 'Cats@Editsave');	// GET ??
 	$router->get('/delete', 'Cats@Delete');		// GET ??
