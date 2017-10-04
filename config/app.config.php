@@ -26,9 +26,3 @@ Config::$db["DB_HOST"]      = $_ENV["DB_HOST"]; // сервер БД
 Config::$db["DB_USER"]      = $_ENV["DB_USER"]; // логин
 Config::$db["DB_PASS"]      = $_ENV["DB_PASS"]; // пароль
 Config::$db["DB_NAME"]      = $_ENV["DB_NAME"]; // имя БД
-
-// Настройки роутинга
-Config::$router = [
-    'about'                    => 'main@about',
-    '{controller}/{action}'    => '{controller}@{action}',
-];

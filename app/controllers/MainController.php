@@ -26,9 +26,9 @@ class MainController extends BaseController
     }
 
     /**
-     * ActionAbout
+     * ActionAbout - проверка вызова статического метода
      */
-    public function actionAbout()
+    public static function actionAbout()
     {
         echo 'Hello from ' . __METHOD__;
     }
