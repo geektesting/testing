@@ -51,7 +51,7 @@ $router->party('/cats', function() use ($router) {
 });
 
 /**
- * Работа с вопросами
+ * Работа с категориями вопросов
  */
 $router->party('/qcats', function() use ($router) {
 	$router->get('/', 'Qcats@Index');
@@ -70,7 +70,21 @@ $router->party('/quizes', function() use ($router) {
 	$router->get('/create', 'Quizes@Create');
 	$router->post('/save', 'Quizes@Save');
 	$router->get('/edit', 'Quizes@Edit');
+	$router->get('/add', 'Quizes@Add');
 	$router->get('/delete', 'Quizes@Delete');	// GET ??
 });
+
+/**
+ * Работа с вопросами
+ */
+$router->party('/questions', function() use ($router) {
+	$router->get('/', 'Questions@Index');
+	$router->get('/create', 'Questions@Create');
+	$router->post('/save', 'Questions@Save');
+	$router->get('/edit', 'Questions@Edit');
+	$router->post('/add', 'Questions@Add');
+	$router->get('/delete', 'Questions@Delete');
+});
+
 
 return $router;
