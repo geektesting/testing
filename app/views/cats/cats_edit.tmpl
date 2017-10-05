@@ -21,38 +21,52 @@
 		
 		<form action="/cats/editsave/">
 
-				<input type="hidden" class="form-control" name="catId" value="{{ current }}">
+		<input type="hidden" class="form-control" name="catId" value="{{ current }}">
+		
+		<div class="row">
+			<div class="col-lg-6 col-md-6 order-1">				
+				<div class="form-group">
+					<label for="cat_name">Название категории</label>
+						{% set current_parent = 0 %}				
+						{% for cat in cats %}
+							{% if cat.id == current %}
+					<input type="text" class="form-control" name="catName" value="{{ cat.cat_name }}">
+							{% set current_parent = cat.parent %}
+							{% endif %}
+						{% endfor %}
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 order-1">				
+				<div class="form-group">
+					<label for="parent">Родительская категория </label>
+					<select class="form-control" name="parent">
+						{% set no_parent = 1 %}
+						{% if current_parent == 0 %}
+							<option value=0 selected>Нет родительской категории</option>
+							{% set no_parent = 0 %}
+						{% endif %}
+						{% if no_parent %}
+							<option value=0>Нет родительской категории</option>
+						{% endif %}
+						{% for cat in cats %}
+							{% if cat.id == current_parent %}
+								<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
+							{% else %}
+								<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
+							{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
 		<div class="form-group">
-				<label for="cat_name">Название категории</label>
-					{% set current_parent = 0 %}				
-					{% for cat in cats %}
-						{% if cat.id == current %}
-				<input type="text" class="form-control" name="catName" value="{{ cat.cat_name }}">
-						{% set current_parent = cat.parent %}
-						{% endif %}
-					{% endfor %}
-			</div>
-
-			<div class="form-group">
-				<label for="parent">Родительская категория </label>
-				<select class="form-control" name="parent">
-					{% set no_parent = 1 %}
-					{% if current_parent == 0 %}
-						<option value=0 selected>Нет родительской категории</option>
-						{% set no_parent = 0 %}
-					{% endif %}
-					{% if no_parent %}
-						<option value=0>Нет родительской категории</option>
-					{% endif %}
-					{% for cat in cats %}
-						{% if cat.id == current_parent %}
-							<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
-						{% else %}
-							<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
-						{% endif %}
-					{% endfor %}
-				</select>
-			</div>
+			<label for="description">Описание</label>
+						{% for cat in cats %}
+							{% if cat.id == current %}
+				<textarea class="form-control" name="description" rows="10">{{ cat.description }}</textarea>
+							{% endif %}
+						{% endfor %}
+		</div>
 			
 			<button type="submit" class="btn btn-primary">Сохранить</button>
 		</form>

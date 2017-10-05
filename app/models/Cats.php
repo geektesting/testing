@@ -10,6 +10,7 @@ use App\Core\DB;
 class Cats
 {
     private static $_userId = 1;  // 1 - админ
+    public static $numbers = [];
 
     /**
      * По умолчанию возвращает массив категорий для бекенда.
@@ -22,11 +23,11 @@ class Cats
     static function catList(string $isFront = "") : array
     {
         $result = [];
-        $data = null;
 
         if ($isFront != "") {
             if ($isFront == "front") {
                 $data = DB::getInstance()->fetchAll("SELECT * FROM cats WHERE approved = 1 AND access = 1");
+                self::$numbers = DB::getInstance()->fetchAll("SELECT DISTINCT cat AS id, COUNT(cat) AS num FROM quizes GROUP BY cat");
             } else {
                 echo "Допускается только параметр \"front\"";
                 return [];
@@ -74,16 +75,28 @@ class Cats
     }
 
     /**
+     * Извлекает из базы информацию по конкретной категории.
+     *
+     * @param int $id
+     * @return array
+     */
+    public static function catInfo(int $id) : array
+    {
+        return DB::getInstance()->fetchOne("SELECT * FROM cats WHERE id='$id'");
+    }
+
+    /**
      * Создаёт категорию и устанавливает для неё родительскую
      * @param string $catName
      * @param int $parent
      * @return bool
      */
-    public static function catCreate(string $catName, int $parent) : bool
+    public static function catCreate(string $catName, int $parent, string $description) : bool
     {
+        $description = addslashes($description);
         $data = DB::getInstance()->fetchOne("SELECT level FROM cats WHERE id = '$parent'");
-        $sql = "INSERT INTO cats (`cat_name`,`parent`,`level`,`user_id`) 
-                    VALUES ('$catName', '$parent','$data[level]' + 1,". self::$_userId .')';
+        $sql = "INSERT INTO cats (`cat_name`,`description`,`parent`,`level`,`user_id`) 
+                    VALUES ('$catName', '$description','$parent','$data[level]' + 1,". self::$_userId .')';
         $result = DB::getInstance()->execute($sql);
         if ($result) {
             header('Location: /cats/');
@@ -113,11 +126,12 @@ class Cats
      * @param int $parent
      * @return bool
      */
-    public static function catEdit(int $catId, string $newName, int $parent) : bool
+    public static function catEdit(int $catId, string $newName, int $parent, string $description) : bool
     {
         $result = [];
 		$data = [];
         $cats = self::catList();
+        $description = addslashes($description);
 
         $where = function (int $catId = 0) : string {
             static $statement = "";
@@ -161,6 +175,7 @@ class Cats
             DB::getInstance()->execute("UPDATE cats SET
                 `cat_name` = '$newName', 
                 `parent` = '$parent',
+                `description` = '$description',
                 `level` = '$data[level]' + 1
                 WHERE id = '$catId'");
             if ($delta) {

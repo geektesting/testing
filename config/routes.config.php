@@ -86,5 +86,18 @@ $router->party('/questions', function() use ($router) {
 	$router->get('/delete', 'Questions@Delete');
 });
 
+/**
+ * Отображение отдельного теста
+ */
+$router->party('/quiz', function() use ($router) {
+	$router->get('/', 'Quiz@Index');
+});
+
+/**
+ * Отображение содержимого категории тестов
+ */
+$router->party('/cat', function() use ($router) {
+	$router->get('/', 'Cat@Index');
+});
 
 return $router;

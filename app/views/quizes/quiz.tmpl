@@ -1,0 +1,37 @@
+{% include "layouts/head.tmpl" %}
+{% include "layouts/header.tmpl" %}
+
+<main class="main">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3 order-3 order-lg-1">
+                {% if isAuth %}
+				
+				{% include "quizes/your_quizes.tmpl" %}
+
+                {% endif %}
+            </div>
+
+            <div class="col-lg-9 col-md-12 order-1 order-lg-2">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ quiz.name }}</h4>
+
+						{{ quiz.description }}<br><br>						
+						
+						<button class="btn btn-primary">Начать тест</button>
+							
+                        </table>
+						<button class="btn btn-primary fright" onClick="history.back()">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</main>
+<!-- /.main -->
+
+{% include "layouts/footer.tmpl" %}
