@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 /*eslint-disable */
 window.addSelector = () => {
 	$.ajax({
@@ -11,5 +9,5 @@ window.addSelector = () => {
 };
 
 window.removeSelector = (self) => {
-	$(self.parentNode.parentNode.parentNode).remove();
+	$(self).parents().eq(2).remove();
 };

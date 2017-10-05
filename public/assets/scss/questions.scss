@@ -1,0 +1,33 @@
+.answerId{
+	text-align: right;
+	color: #007bff;
+	font-size: 25px;
+	font-weight: bold;
+}
+.answerRadio{
+	margin-left: -10px;
+}
+.answerRadio .btn-primary{
+	background: rgba(0, 123, 255, 0.32);
+	color: rgba(0, 123, 255, 0.32)
+}
+.btn-primary:active{
+	background: #0069d9;
+}
+.answerDesc {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: -9px;
+	width: 95%
+}
+.answerToggle {
+	display: inline-block;
+	font-size: 26px;
+	text-align: right;
+	vertical-align: middle;
+	margin-top: -14px;
+	margin-left: 9px;
+}
+.answerLabel {
+	margin-bottom: 15px;
+}
