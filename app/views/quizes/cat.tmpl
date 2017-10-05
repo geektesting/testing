@@ -1,0 +1,48 @@
+{% include "layouts/head.tmpl" %}
+{% include "layouts/header.tmpl" %}
+
+<main class="main">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3 order-3 order-lg-1">
+                {% if isAuth %}
+				
+				{% include "quizes/your_quizes.tmpl" %}
+
+                {% endif %}
+            </div>
+
+            <div class="col-lg-9 col-md-12 order-1 order-lg-2">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ cat.cat_name }}</h4>
+
+						{{ cat.description }}<br><br>
+						
+                        <table class="table">
+							<tr>
+								<th class='cat_name'>Тесты в этой категории</th>
+								<th>Автор</th>
+							</tr>
+
+                            {% for quiz in quizes %}
+                                <tr>
+                                    <td><a href="/quiz/?id={{ quiz.id }}">{{ quiz.name }}</a></td>
+                                    <td>{{ quiz.user_id }}</td>
+                                </tr>
+                            {% endfor %}
+							
+                        </table>
+						<button class="btn btn-primary fright" onClick="history.back()">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</main>
+<!-- /.main -->
+
+{% include "layouts/footer.tmpl" %}

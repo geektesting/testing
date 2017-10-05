@@ -13,31 +13,25 @@ class Quizes
     /**
      * По умолчанию возвращает список тестов для бекенда.
      * Администратор видит все тесты, пользователь - только свои.
-     * С необязательным параметром "front" предназначена для отображения
-     * на фронтенде всех доступных данному пользователю тестов.
+     * С параметром "id" предназначена для отображения
+     * на фронтенде тестов из категории с данным идентификатором.
      * @param  string $isFront
      * @return array
      */
-    static function quizList(string $isFront = "") : array
+    static function quizList(int $id = 0) : array
     {
         $result = [];
-        $sql = "SELECT q.id, q.user_id, q.name, q.status, q.hidden, cats.cat_name AS cat_name 
+        $sql = "SELECT q.id, q.user_id, q.name, q.status, q.hidden, q.cat as cat_id, cats.description AS description, cats.cat_name AS cat_name 
                                    FROM quizes q
                                    LEFT JOIN cats ON q.cat = cats.id";
 
-        if ($isFront != "") {
-            if ($isFront == "front") {
-                $result = DB::getInstance()->fetchAll($sql);
-            } else {
-                echo "Допускается только параметр \"front\"";
-                return [];
-            }
+        if ($id) {
+                $result = DB::getInstance()->fetchAll($sql . " WHERE q.cat = " . $id);
         } else if (self::$_userId == 1) {
                 $result = DB::getInstance()->fetchAll($sql);
         } else {
                 $result = DB::getInstance()->fetchAll($sql . " WHERE q.user_id = " . self::$_userId);
         }
-
         return $result;
     }
 

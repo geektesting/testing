@@ -9,6 +9,7 @@
 namespace App\Controllers;
 
 use \App\Config;
+use \App\Models\Cats;
 
 /**
  * Class MainController
@@ -22,13 +23,16 @@ class MainController extends BaseController
      */
     public function actionIndex()
     {
-        $this->render("index");
+        $this->render("index", [
+            "cats" => Cats::catList("front"),
+            "numbers" => Cats::$numbers
+        ]);
     }
 
     /**
-     * ActionAbout - проверка вызова статического метода
+     * ActionAbout
      */
-    public static function actionAbout()
+    public function actionAbout()
     {
         echo 'Hello from ' . __METHOD__;
     }

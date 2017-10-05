@@ -38,10 +38,31 @@
                 {% if isAuth %}
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h4 class="card-title">Тесты</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A quidem deserunt laboriosam ipsum, sapiente,
-                            saepe ratione quisquam quam aliquam animi et. Soluta atque repudiandae maiores sed, itaque eos
-                            assumenda dolor!</p>
+                        <h4 class="card-title">Тесты по категориям</h4>
+						
+						    <table class="table narrow">
+
+                            {% for cat in cats %}
+                                <tr>
+                                {%  if cat.no_delete == 0 %}
+								{% set marker = 0 %}
+									{% for number in numbers %}
+										{% if cat.id == number.id %}
+											<td class='cat_level_{{ cat.level }}'><a href="/cat/?id={{ cat.id }}" id="{{ cat.id }}">{{ cat.cat_name }} ({{ number.num }})</a></td>
+										{% set marker = 1 %}	
+										{% endif %}
+									{% endfor %}
+										{% if marker == 0 %}
+											<td class='cat_level_{{ cat.level }}'><a href="/cat/?id={{ cat.id }}" id="{{ cat.id }}">{{ cat.cat_name }}</a></td>
+										{% endif %}	
+                                {% else %}
+									<td class='cat_level_{{ cat.level }}'>{{ cat.cat_name }}</td>
+                                {% endif %}
+                                </tr>
+                            {% endfor %}
+							
+							</table>
+						
                     </div>
                 </div>
 
