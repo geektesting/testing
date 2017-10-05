@@ -8,8 +8,6 @@
 
 namespace App\Core;
 
-use App\Controllers\BaseController;
-
 /**
  * Class App
  * @package Core
@@ -23,21 +21,12 @@ class App
      */
     public function run()
     {
-        // Запускаем роутер
-        $router = new Route();
-        $router->run();
 
-        $controller = $router->getController();
-        $action     = $router->getAction();
-
-        session_start();
-
-        // вызываем метод, если он существует
-        if (class_exists($controller) && method_exists($controller, $action)) {
-            (new $controller())->$action();
-        } else {
-            (new BaseController())->render('errors/404', []);
-        }
+		session_start();
+		// Добавляем маршруты
+		$router = require(__DIR__ . '/../../config/routes.config.php');
+		// Запускаем роутер
+		$router->run();
     }
 
     /**
