@@ -25,7 +25,7 @@ class CatsController extends BaseController
                 "cats" => Cats::catList()
             ]);
     }
-
+    
     /**
      * ActionEdit
      */
@@ -52,7 +52,7 @@ class CatsController extends BaseController
      */
     public function actionSave()
     {
-        Cats::catCreate((string) $_GET["catName"], (int) $_GET["parent"]);
+        Cats::catCreate((string) $_GET["catName"], (int) $_GET["parent"],(string) $_GET["description"]);
     }
 
     /**
@@ -68,6 +68,6 @@ class CatsController extends BaseController
      */
     public function actionEditSave()
     {
-        Cats::catEdit((int) $_GET["catId"], (string) $_GET["catName"], (int) $_GET["parent"]);
+        Cats::catEdit((int) $_GET["catId"], (string) $_GET["catName"], (int) $_GET["parent"],(string) $_GET["description"]);
     }
 }
