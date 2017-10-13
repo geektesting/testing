@@ -21,9 +21,15 @@ class CatsController extends BaseController
      */
     public function actionIndex()
     {
-		$this->render("cats/cats", [
-                "cats" => Cats::catList()
-            ]);
+        if($this->isAuth()) {
+            $this->render("cats/cats", [
+                    "cats" => Cats::catList(),
+                    "role" => $this->getUserRole()
+                ]);
+        }
+        else {
+            header('Location: /auth/');
+        }
     }
     
     /**
@@ -31,10 +37,18 @@ class CatsController extends BaseController
      */
     public function actionEdit()
     {
-		$this->render("cats/cats_edit", [
-            "cats" => Cats::catList(),
-            "current" => $_GET["id"]
-        ]);
+        if($this->isAuth()) {
+            if (Cats::catInfo($_GET["id"])) {
+                $this->render("cats/cats_edit", [
+                    "cats" => Cats::catList(),
+                    "current" => $_GET["id"],
+                    "role" => $this->getUserRole()
+                ]);
+            }
+        }
+        else {
+            header('Location: /auth/');
+        }
     }
 
     /**
@@ -42,9 +56,15 @@ class CatsController extends BaseController
      */
     public function actionCreate()
     {
-		$this->render("cats/cats_create", [
-            "cats" => Cats::catList()
-        ]);
+        if($this->isAuth()) {
+            $this->render("cats/cats_create", [
+                "cats" => Cats::catList(),
+                "role" => $this->getUserRole()
+            ]);
+        }
+        else {
+            header('Location: /auth/');
+        }
     }
 
     /**
@@ -52,15 +72,30 @@ class CatsController extends BaseController
      */
     public function actionSave()
     {
-        Cats::catCreate((string) $_GET["catName"], (int) $_GET["parent"],(string) $_GET["description"]);
+        if($this->isAuth()) {
+            Cats::catCreate((string) $_GET["catName"], (int) $_GET["parent"],(string) $_GET["description"]);
+        }
+        else {
+            header('Location: /auth/');
+        }
     }
 
     /**
      * ActionDelete
      */
     public function actionDelete()
-    { 
-        Cats::catDelete($_GET["id"]);
+    {
+        if($this->isAuth()) {
+            if (Cats::catInfo($_GET["id"])) {
+                Cats::catDelete($_GET["id"]);
+            }
+            else{
+                header('Location: /cats/');
+            }
+        }
+        else {
+            header('Location: /auth/');
+        }
     }
 
     /**
@@ -68,6 +103,10 @@ class CatsController extends BaseController
      */
     public function actionEditSave()
     {
-        Cats::catEdit((int) $_GET["catId"], (string) $_GET["catName"], (int) $_GET["parent"],(string) $_GET["description"]);
+        if ($this->isAuth()) {
+            Cats::catEdit((int)$_GET["catId"], (string)$_GET["catName"], (int)$_GET["parent"], (string)$_GET["description"]);
+        } else {
+            header('Location: /auth/');
+        }
     }
 }

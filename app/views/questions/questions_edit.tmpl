@@ -39,7 +39,7 @@
 									<div class="col-lg-5 col-md-5 order-2">
 										<div class="form-group">
 											<label for="qType">Тип вопроса</label>
-											<select class="form-control" name="qType">
+											<select class="form-control" id="qType" name="qType" onChange="toggleAnswer(this)">
 											{% for qtype in qtypes %}
 												{% if qtype.id == question.qtype %}												
 													<option value="{{ qtype.id }}" selected>{{ qtype.description }}</option>
@@ -66,66 +66,130 @@
 								</div>
 								<div class="answerLabel">Варианты ответа</div>
 
-							{% for answer in question.answers%}
-							{% if loop.index==1 %}
-								<div class="row answers" id="r1">
-								
-									<div class="col-lg-1 col-md-1 order-1">
-										<div class="answerId">
-												1
-										</div>
-									</div>
-
-									<div class="col-lg-1 col-md-1 order-2">
-										<div class="answerRadio">
-												<label class="btn btn-primary">
-													<input type="radio" name="rightAnswer" value="1" {% if answer.marker %} checked {% endif %}>
-												</label>
-										</div>
-									</div>
-									
-									<div class="col-lg-10 col-md-10 order-3">
-										<div class="answerDesc">
-											<div class="form-group">
-												<textarea class="form-control" name="answers[]" rows="2">{{answer.description}}</textarea>
+							{% if question.qtype == 1 %}
+								{% for answer in question.answers%}
+									{% if loop.index==1 %}
+										<div class="row answers" id="r1">
+										
+											<div class="col-lg-1 col-md-1 order-1">
+												<div class="answerId">
+														1
+												</div>
+											</div>
+		
+											<div class="col-lg-1 col-md-1 order-2">
+												<div class="answerRadio">
+														<label class="btn btn-primary">
+															<input type="radio" name="rightAnswer" value="1" {% if answer.marker %} checked {% endif %}>
+														</label>
+												</div>
+											</div>
+											
+											<div class="col-lg-10 col-md-10 order-3">
+												<div class="answerDesc">
+													<div class="form-group">
+														<textarea class="form-control" name="answers[]" rows="2">{{answer.description}}</textarea>
+													</div>
+												</div>
+												<div class="answerToggle">
+													<a href="javascript:void(0)" onClick="addAnswer()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+												</div>
 											</div>
 										</div>
-										<div class="answerToggle">
-											<a href="javascript:void(0)" onClick="addAnswer()"><i class="fa fa-plus" aria-hidden="true"></i></a>
-										</div>
-									</div>
-								</div>
-							{% else %}	
-								<div class="row answers" id="r{{loop.index}}">
-								
-									<div class="col-lg-1 col-md-1 order-1">
-										<div class="answerId">
-												{{loop.index}}
-										</div>
-									</div>
-
-									<div class="col-lg-1 col-md-1 order-2">
-										<div class="answerRadio">
-												<label class="btn btn-primary">
-													<input type="radio" name="rightAnswer" value="{{loop.index}}" {% if answer.marker %} checked {% endif %}>
-												</label>	
-										</div>
-									</div>
-									
-									<div class="col-lg-10 col-md-10 order-3">
-										<div class="answerDesc">
-											<div class="form-group">
-												<textarea class="form-control" name="answers[]" rows="2" value="">{{answer.description}}</textarea>
+									{% else %}	
+										<div class="row answers" id="r{{loop.index}}">
+										
+											<div class="col-lg-1 col-md-1 order-1">
+												<div class="answerId">
+														{{loop.index}}
+												</div>
+											</div>
+		
+											<div class="col-lg-1 col-md-1 order-2">
+												<div class="answerRadio">
+														<label class="btn btn-primary">
+															<input type="radio" name="rightAnswer" value="{{loop.index}}" {% if answer.marker %} checked {% endif %}>
+														</label>	
+												</div>
+											</div>
+											
+											<div class="col-lg-10 col-md-10 order-3">
+												<div class="answerDesc">
+													<div class="form-group">
+														<textarea class="form-control" name="answers[]" rows="2" value="">{{answer.description}}</textarea>
+													</div>
+												</div>
+												<div class="answerToggle">
+													<a href="javascript:void(0)" onClick="removeAnswer(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
+												</div>
 											</div>
 										</div>
-										<div class="answerToggle">
-											<a href="javascript:void(0)" onClick="removeAnswer(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
+									
+									{% endif %}
+								{% endfor %}
+							{% elseif question.qtype == 2 %}
+								{% for answer in question.answers%}
+									{% if loop.index==1 %}
+										<div class="row answers" id="r1">
+										
+											<div class="col-lg-1 col-md-1 order-1">
+												<div class="answerId">
+														1
+												</div>
+											</div>
+		
+											<div class="col-lg-1 col-md-1 order-2">
+												<div class="answerRadio">
+														<label class="btn btn-primary">
+															<input type="checkbox" name="rightAnswer[]" value="1" {% if answer.marker %} checked {% endif %}>
+														</label>
+												</div>
+											</div>
+											
+											<div class="col-lg-10 col-md-10 order-3">
+												<div class="answerDesc">
+													<div class="form-group">
+														<textarea class="form-control" name="answers[]" rows="2">{{answer.description}}</textarea>
+													</div>
+												</div>
+												<div class="answerToggle">
+													<a href="javascript:void(0)" onClick="addAnswer()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-							
+									{% else %}	
+										<div class="row answers" id="r{{loop.index}}">
+										
+											<div class="col-lg-1 col-md-1 order-1">
+												<div class="answerId">
+														{{loop.index}}
+												</div>
+											</div>
+		
+											<div class="col-lg-1 col-md-1 order-2">
+												<div class="answerRadio">
+														<label class="btn btn-primary">
+															<input type="checkbox" name="rightAnswer[]" value="{{loop.index}}" {% if answer.marker %} checked {% endif %}>
+														</label>	
+												</div>
+											</div>
+											
+											<div class="col-lg-10 col-md-10 order-3">
+												<div class="answerDesc">
+													<div class="form-group">
+														<textarea class="form-control" name="answers[]" rows="2" value="">{{answer.description}}</textarea>
+													</div>
+												</div>
+												<div class="answerToggle">
+													<a href="javascript:void(0)" onClick="removeAnswer(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
+												</div>
+											</div>
+										</div>
+									
+									{% endif %}
+								{% endfor %}
 							{% endif %}
-							{% endfor %}						
+							
 							<button type="submit" class="btn btn-primary">Сохранить</button>
 						</form>
                     </div>

@@ -44,9 +44,23 @@
 											<label for="catName">Категория</label>
 											<select class="form-control" name="catName">
 													<option value="" selected disabled></option>
-												{% for cat in cats %}
-													<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
-												{% endfor %}
+													{% for cat in adminCats %}
+														{%  if cat.no_delete == 0 %}
+															<option value="{{ cat.id }}">{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% else %}
+															<option value="{{ cat.id }}" disabled>{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% endif %}
+													{% endfor %}
+													{% if isAdmin == 0 %}
+															<option value="1" disabled>Частные категории</option>
+													{% endif %}
+													{% for cat in cats %}
+														{%  if cat.no_delete == 0 %}
+															<option value="{{ cat.id }}">{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% else %}
+															<option value="{{ cat.id }}" disabled>{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% endif %}
+													{% endfor %}
 											</select>
 										</div>
 									</div>
@@ -67,7 +81,7 @@
 									<div class="col-lg-6 col-md-6 order-2">
 										<div class="form-group">
 											<label for="newToken">Ссылка на тест</label>
-											<input type="text" class="form-control" name="newToken" value="">
+											<input type="text" class="form-control" name="newToken" value="" disabled placeholder="Создаётся автоматически">
 										</div>
 									</div>
 									
@@ -153,7 +167,7 @@
 								</div>
 							</div>
 						</div>
-							<button type="submit" class="btn btn-primary">Сохранить</button>
+							<button type="submit" class="btn btn-primary fright">Сохранить</button>
 						</form>
                     </div>
                 </div>

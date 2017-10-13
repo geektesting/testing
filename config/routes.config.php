@@ -84,6 +84,7 @@ $router->party('/questions', function() use ($router) {
 	$router->get('/edit', 'Questions@Edit');
 	$router->post('/add', 'Questions@Add');
 	$router->get('/delete', 'Questions@Delete');
+	$router->post('/toggle', 'Questions@Toggle');
 });
 
 /**

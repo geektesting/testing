@@ -9,7 +9,6 @@ use App\Core\DB;
  */
 class Qcats
 {
-    private static $_userId = 1;  // 1 - админ
 
     /**
      * Возвращает массив категорий вопросов для бекенда.
@@ -18,32 +17,27 @@ class Qcats
      */
     static function catList() : array
     {
-        $result = [];
-        if (self::$_userId == 1) {
-            $result = DB::getInstance()->fetchAll("SELECT * FROM qcats");
+        $data = [];
+        $user = (new User())->getCurrent();
+        
+        if ($user->getRole() == User::ADMINISTRATOR) {
+            $data = DB::getInstance()->fetchAll("SELECT * FROM qcats");
         }
         else{
-            $result = DB::getInstance()->fetchAll("SELECT * FROM qcats WHERE user_id = " . self::$_userId);
+            $data = DB::getInstance()->fetchAll("SELECT * FROM qcats WHERE user_id = " . $user->getId());
         }
-        return $result;
+        return $data;
     }
 
     /**
      * Создаёт категорию вопросов
      * @param string $catName
-     * @return bool
      */
-    function catCreate(string $catName) : bool
+    function catCreate(string $catName)
     {
-        $sql = "INSERT INTO qcats (`cat_name`,`user_id`) VALUES ('$catName', '" . self::$_userId . "')";
-        $result = DB::getInstance()->execute($sql);
-        if ($result) {
-            header('Location: /qcats/');
-            return true;
-        } else {
-            echo "Ошибка создания категории";
-            return false;
-        }
+        $user = (new User())->getCurrent();
+        DB::getInstance()->execute("INSERT INTO qcats (`cat_name`,`user_id`) VALUES ('$catName', '" . $user->getId() . "')");
+        header('Location: /qcats/');
     }
 
     /**

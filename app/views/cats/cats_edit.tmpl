@@ -15,9 +15,9 @@
 
             <div class="col-lg-9 col-md-12 order-1 order-lg-2">
                 <div class="card mb-4">
-
                     <div class="card-body">
-                        <h4 class="card-title">Редактирование категории</h4>
+
+		<h4 class="card-title">Редактирование категории</h4>
 		
 		<form action="/cats/editsave/">
 
@@ -27,11 +27,13 @@
 			<div class="col-lg-6 col-md-6 order-1">				
 				<div class="form-group">
 					<label for="cat_name">Название категории</label>
-						{% set current_parent = 0 %}				
+						{% set current_parent = 0 %}	
+						{% set root_level = 0 %}	
 						{% for cat in cats %}
 							{% if cat.id == current %}
 					<input type="text" class="form-control" name="catName" value="{{ cat.cat_name }}">
 							{% set current_parent = cat.parent %}
+							{% set root_level = cat.level %}	
 							{% endif %}
 						{% endfor %}
 				</div>
@@ -40,21 +42,35 @@
 				<div class="form-group">
 					<label for="parent">Родительская категория </label>
 					<select class="form-control" name="parent">
-						{% set no_parent = 1 %}
-						{% if current_parent == 0 %}
-							<option value=0 selected>Нет родительской категории</option>
-							{% set no_parent = 0 %}
-						{% endif %}
-						{% if no_parent %}
-							<option value=0>Нет родительской категории</option>
-						{% endif %}
-						{% for cat in cats %}
-							{% if cat.id == current_parent %}
-								<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
-							{% else %}
-								<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
+						{% if role == 2 %}
+							{% set no_parent = 1 %}
+							{% if current_parent == 0 %}
+								<option value=0 selected>Нет родительской категории</option>
+								{% set no_parent = 0 %}
 							{% endif %}
-						{% endfor %}
+							{% if no_parent %}
+								<option value=0>Нет родительской категории</option>
+							{% endif %}
+							{% for cat in cats %}
+								{% if cat.id == current_parent %}
+									<option value="{{ cat.id }}" selected>{{ cat.prefix }} {{ cat.cat_name }}</option>
+								{% else %}
+									<option value="{{ cat.id }}">{{ cat.prefix }} {{ cat.cat_name }}</option>
+								{% endif %}
+							{% endfor %}
+						{% else %}
+							{% if root_level == 1 %}
+									<option value="1">Частные категории</option>
+							{% else %}
+								{% for cat in cats %}
+									{% if cat.id == current_parent %}
+										<option value="{{ cat.id }}" selected>{{ cat.prefix }} {{ cat.cat_name }}</option>
+									{% elseif cat.id != current %}
+										<option value="{{ cat.id }}">{{ cat.prefix }} {{ cat.cat_name }}</option>
+									{% endif %}
+								{% endfor %}
+							{% endif %}								
+						{% endif %}
 					</select>
 				</div>
 			</div>
@@ -68,14 +84,12 @@
 						{% endfor %}
 		</div>
 			
-			<button type="submit" class="btn btn-primary">Сохранить</button>
+			<button type="submit" class="btn btn-primary fright">Сохранить</button>
 		</form>
 		
                     </div>
                 </div>
             </div>
-
-
         </div>
         <!-- /.row -->
     </div>

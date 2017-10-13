@@ -10,7 +10,7 @@
 				{% include "quizes/your_quizes.tmpl" %}
 
                 {% endif %}
-				
+<!--
                     <div class="card mb-4">
                         <div class="card-body">
                             <h4 class="card-title">Категории тестов</h4>
@@ -20,7 +20,7 @@
                             <a class="nav-link-green-block" href="#">Физика</a>
                         </div>
                     </div>
-                    
+-->
                     <h3>Subscribe</h3>
                     <div class="block">
                         <form method="post" action="/">
@@ -35,7 +35,7 @@
             </div>
 
             <div class="col-lg-6 col-md-8 order-1 order-lg-2">
-                {% if isAuth %}
+                
                 <div class="card mb-4">
                     <div class="card-body">
                         <h4 class="card-title">Тесты по категориям</h4>
@@ -65,7 +65,7 @@
 						
                     </div>
                 </div>
-
+<!--
                 <div class="card mb-4">
                     <div class="card-body">
                         <nav>
@@ -74,16 +74,16 @@
                         </nav>
                     </div>
                 </div>
-                 {% endif %}
+                 
                 <div class="card mb-4">
-                {% if isAuth %}
+                
                     <div class="card-body">
                         <h4 class="card-title">Уровни</h4>
                         <a class="nav-link-green-block" href="#">Простой уровень</a>
                         <a class="nav-link-green-block" href="#">Средний уровень</a>
                         <a class="nav-link-green-block" href="#">Сложный уровень</a>
                     </div>
-                {% else %}
+             
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title text-center">Здорово! А зачем это?</h4>
@@ -93,8 +93,8 @@
                             Всё это доступно Вам уже сейчас!</p>
                         </div>
                     </div>
-                {% endif %}
-                </div>
+
+-->   					
             </div>
 
             <div class="col-lg-3 col-md-4 order-2 order-lg-3">

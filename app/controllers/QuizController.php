@@ -16,7 +16,8 @@ class QuizController extends BaseController
     public function actionIndex()
     {
 		$this->render("quizes/quiz", [
-                "quiz" => Quizes::quizInfo($_GET["id"])
-            ]);
+            "quizes" => Quizes::quizList($_GET["catid"]),
+            "current" => $_GET["id"]
+        ]);
     }
 }
