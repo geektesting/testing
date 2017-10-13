@@ -36,7 +36,7 @@
 									<div class="col-lg-5 col-md-5 order-2">
 										<div class="form-group">
 											<label for="qType">Тип вопроса</label>
-											<select class="form-control" name="qType">
+											<select class="form-control" id="qType" name="qType" onChange="toggleAnswer(this)">
 												{% for qtype in qtypes %}
 													<option value="{{ qtype.id }}">{{ qtype.description }}</option>					
 												{% endfor %}
@@ -58,9 +58,6 @@
 									<textarea class="form-control" name="description" rows="10" value=""></textarea>
 								</div>
 								<div class="answerLabel">Варианты ответа</div>
-								<script>
-
-								</script>
 								<div class="row answers" id="r1">
 								
 									<div class="col-lg-1 col-md-1 order-1">
@@ -89,7 +86,7 @@
 									</div>
 								</div>
 						
-							<button type="submit" class="btn btn-primary">Сохранить</button>
+							<button type="submit" class="btn btn-primary fright">Сохранить</button>
 						</form>
                     </div>
                 </div>

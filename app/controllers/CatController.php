@@ -19,7 +19,8 @@ class CatController extends BaseController
     {
         $this->render("quizes/cat", [
             "quizes" => Quizes::quizList($_GET["id"]),
-            "cat" => Cats::catInfo($_GET["id"])
+            "cats" => Cats::catList("front"),
+            "current" => $_GET["id"]
         ]);
     }
 }

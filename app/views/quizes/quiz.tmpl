@@ -16,13 +16,15 @@
             <div class="col-lg-9 col-md-12 order-1 order-lg-2">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h4 class="card-title">{{ quiz.name }}</h4>
-
-						{{ quiz.description }}<br><br>						
+					
+                        {% for quiz in quizes %}
+							{% if quiz.id == current %}
+								<h4 class="card-title">{{ quiz.name }}</h4>
+								{{ quiz.descript }}<br><br>
+							{% endif %}
+                        {% endfor %}					
 						
 						<button class="btn btn-primary">Начать тест</button>
-							
-                        </table>
 						<button class="btn btn-primary fright" onClick="history.back()">Назад</button>
                     </div>
                 </div>

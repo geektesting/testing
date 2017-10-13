@@ -2,13 +2,13 @@
 
 namespace App\Models;
 use App\Core\DB;
+use App\Models\User;
 
 /**
  * Class Questions
  */
 class Questions
 {
-    private static $_userId = 1;  // 1 - админ
 
     /**
      * Возвращает список вопросов для бекенда.
@@ -18,14 +18,16 @@ class Questions
     static function qList() : array
     {
         $result = [];
+        $user = (new User())->getCurrent();
+
         $sql = "SELECT q.id,q.user_id,q.qtype,q.description,q.answers,q.point, qcats.cat_name AS qcat_name
                       FROM questions q
                       LEFT JOIN qcats ON q.qcat = qcats.id";
 
-        if (self::$_userId == 1) {
+        if ($user->getRole() == User::ADMINISTRATOR) {
                 $result = DB::getInstance()->fetchAll($sql);
         } else {
-            $result = DB::getInstance()->fetchAll($sql . " WHERE q.user_id = " . self::$_userId);
+            $result = DB::getInstance()->fetchAll($sql . " WHERE q.user_id = " . $user->getId());
         }
 
         return $result;
@@ -60,10 +62,14 @@ class Questions
      * @param $id
      */
     
-    public static function getAnswer(string $id)
+    public static function getAnswer(int $id, int $type = 1)
     {
         $id++;
-        echo  <<<INC
+		$output = "";
+
+        switch ($type) {
+            case 1: //Радиокнопки
+                $output = <<<INC
         						<div class="row answers" id="r$id">
 								
 									<div class="col-lg-1 col-md-1 order-1">
@@ -86,11 +92,58 @@ class Questions
 											</div>
 										</div>
 										<div class="answerToggle">
-											<a href="javascript:void(0)" onClick="removeAnswer(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>
+INC;
+				if ($id == 1){
+								$output .=	'<a href="javascript:void(0)" onClick="addAnswer(this)"><i class="fa fa-plus" aria-hidden="true"></i></a>';
+				}
+				else	{
+								$output .=	'<a href="javascript:void(0)" onClick="removeAnswer(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>';					
+				}			
+                $output .= <<<INC
 										</div>
 									</div>
 								</div>
 INC;
+                break;
+
+            case 2:
+                echo <<<INC
+        						<div class="row answers" id="r$id">
+								
+									<div class="col-lg-1 col-md-1 order-1">
+										<div class="answerId">	$id
+										</div>
+									</div>
+
+									<div class="col-lg-1 col-md-1 order-2">
+										<div class="answerRadio">
+												<label class="btn btn-primary">
+													<input type="checkbox" name="rightAnswer[]" value="$id">
+												</label>	
+										</div>
+									</div>
+									
+									<div class="col-lg-10 col-md-10 order-3">
+										<div class="answerDesc">
+											<div class="form-group">
+												<textarea class="form-control" name="answers[]" rows="2" value=""></textarea>
+											</div>
+										</div>
+										<div class="answerToggle">
+INC;
+				if ($id == 1){
+								$output .=	'<a href="javascript:void(0)" onClick="addAnswer(this)"><i class="fa fa-plus" aria-hidden="true"></i></a>';
+				}
+				else	{
+								$output .=	'<a href="javascript:void(0)" onClick="removeAnswer(this)"><i class="fa fa-minus" aria-hidden="true"></i></a>';					
+				}			
+                $output .= <<<INC
+										</div>
+									</div>
+								</div>
+INC;
+        }
+		echo $output;
     }
 
     /**
@@ -103,28 +156,47 @@ INC;
     public static function qSave(array $params)
     {
 
+        $user = (new User())->getCurrent();
+
         // Перезагружаем страницу создания теста, если не заполнены нужные поля
       if ( !isset($params["qCats"]) || !isset($params["rightAnswer"]) || $params["description"] == ""){
           header('Location: /questions/create/');
           return;
       }
-
+        $qType = (int) $params["qType"];
         $answerNumber = count($params["answers"]);
 
-        for ($i = 0; $i < $answerNumber; $i++){
-            if ($params["rightAnswer"] == $i+1){
-                $answers[$i]["marker"] = 1;
-            }
-            else {
-                $answers[$i]["marker"] = 0;
-            }
-            $answers[$i]["description"] = $params["answers"][$i];
-        }
-
-        $userId = self::$_userId;
+		switch($qType){
+			case 1:
+					for ($i = 0; $i < $answerNumber; $i++){
+						if ($params["rightAnswer"] == $i+1){
+							$answers[$i]["marker"] = 1;
+						}
+						else {
+							$answers[$i]["marker"] = 0;
+						}
+						$answers[$i]["description"] = $params["answers"][$i];
+					};
+					break;
+			case 2:
+					for ($i = 0; $i < $answerNumber; $i++){
+						foreach($params["rightAnswer"] as $rightAnswer){
+							if ($rightAnswer == $i+1){
+								$answers[$i]["marker"] = 1;
+                                break;
+							}
+							else {
+								$answers[$i]["marker"] = 0;
+							}
+						}
+							$answers[$i]["description"] = $params["answers"][$i];
+					};
+					break;
+		}
+  
+		$userId = $user->getId();
         $description = addslashes ($params["description"]);
         $qCat = (string) $params["qCats"];
-        $qType = (int) $params["qType"];
         $point = (float) $params["point"];
         $answers = serialize($answers);
 

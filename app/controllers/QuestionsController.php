@@ -16,7 +16,8 @@ class QuestionsController extends BaseController
     public function actionIndex()
     {
 		$this->render("questions/questions", [
-                "questions" => Questions::qList()
+             "questions" => Questions::qList(),
+             "qcats" => Qcats::catList()
             ]);
     }
 
@@ -65,6 +66,15 @@ class QuestionsController extends BaseController
      */
     public function actionAdd()
     {
-        Questions::getAnswer($_POST["lastid"]);
+        Questions::getAnswer($_POST["lastid"],$_POST["type"]);
     }
+	
+	 /**
+     * ActionToggle
+     */
+    public function actionToggle()
+    {
+        Questions::getAnswer(0, $_POST["type"]);
+    }
+	
 }

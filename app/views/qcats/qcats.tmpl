@@ -18,6 +18,8 @@
 
                     <div class="card-body">
                         <h4 class="card-title">Категории вопросов</h4>
+						
+							{% if cats|length != 0 %}
 								<table class="table"><tr>
 										<th class='cat_id'>ID</th>
 										<th class='cat_name'>Название</th>
@@ -31,9 +33,14 @@
 												<td class='cat_access'><a href="/qcats/delete/?id={{ cat.id }}" id="{{ cat.id }}">
 												<i class="fa fa-times-circle" aria-hidden="true"></i></a></td></tr>
 								{% endfor %}
-								
 								</table>
-								<a href="/qcats/create/"><button type="submit" id="catCreate" class="btn btn-primary">Создать</button></a>
+								<a href="/qcats/create/"><button type="submit" id="catCreate" class="btn btn-primary fright">Создать</button></a>
+							{% else %}
+								<p>Категории вопросов предназначены для деления вопросов по определённым тематикам и каждый <a href="/questions/">вопрос</a> должен принадлежать какой-то из этих категорий.</p>
+								<p>При <a href="/quizes/">создании тестов</a> необходимо указать, из каких категорий и в каком количестве будут выбираться вопросы.</p>
+								<a href="/qcats/create/"><button type="submit" id="catCreate" class="btn btn-primary fright">Создать</button></a>								
+							{% endif %}
+								
                     </div>
                 </div>
             </div>

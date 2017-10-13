@@ -17,6 +17,8 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h4 class="card-title">Вопросы</h4>
+					
+						{% if questions|length != 0 %}						
                         <table class="table"><tr>
                             <th class='cat_id'>ID</th>
                             <th class='cat_name'>Вопрос</th>
@@ -28,11 +30,21 @@
                                 <td>{{ question.id }}</td>
                                 <td class='question_name'><a href="/questions/edit/?id={{ question.id }}">{{ question.description[:35] }}...</a></td>
                                 <td class='cat_name'>{{ question.qcat_name }}</td>
-                                <td class='cat_access'><a href="/questions/delete/?id={{ question.id }}" id="{{ question.id }}">
-                                    <i class="fa fa-times-circle" aria-hidden="true"></i></a></td></tr>
+                                <td class='cat_access'><a href="/questions/delete/?id={{ question.id }}" id="{{ question.id }}"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td></tr>
                             {% endfor %}
                         </table>
-                        <a href="/questions/create/"><button type="submit" id="questionCreate" class="btn btn-primary">Создать</button></a>
+                        <a href="/questions/create/"><button type="submit" id="questionCreate" class="btn btn-primary fright">Создать</button></a>
+						
+						{% else %}
+						<p>В данном разделе создаются вопросы для <a href="/quizes/">тестов</a>. Но предварительно необходимо создать <a href="/qcats/">категории вопросов</a>, которые предназначены для тематического деления вопросов на группы.</p>
+						<p>Каждый вопрос должен входить в какую-то категорию.</p>
+
+							{% if qcats|length != 0 %}
+								<a href="/questions/create/"><button type="submit" id="questionCreate" class="btn btn-primary fright">Создать</button></a>
+							{% endif %}
+							
+						{% endif %}
+						
                     </div>
                 </div>
             </div>

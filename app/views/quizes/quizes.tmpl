@@ -17,10 +17,12 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h4 class="card-title">Тесты</h4>
+						{% if quizes|length != 0 %}
+
                         <table class="table"><tr>
                             <th class='cat_id'>ID</th>
                             <th class='cat_name'>Название</th>
-                            <th class='cat_access'>Категория</th>
+                            <th>Категория</th>
                             <th class='cat_parent'>Статус</th>
                             <th class='cat_access'>Удалить</th></tr>
 
@@ -40,7 +42,18 @@
                                     <i class="fa fa-times-circle" aria-hidden="true"></i></a></td></tr>
                             {% endfor %}
                         </table>
-                        <a href="/quizes/create/"><button type="submit" id="quizCreate" class="btn btn-primary">Создать</button></a>
+                        <a href="/quizes/create/"><button type="submit" id="quizCreate" class="btn btn-primary fright">Создать</button></a>
+
+						{% else %}
+						
+						<p>В этом разделе вы можете создавать тесты либо в общедоступных категориях, либо в собственных <a href="/cats/">категориях тестов</a>.</p>
+						<p>Перед созданием теста необходимо создать <a href="/qcats/">категорию вопросов</a> и сами <a href="/questions/">вопросы</a>, так как каждый тест включает в себя блоки вопросов из созданных вами категорий вопросов.</p>
+						
+							{% if qcats|length != 0 %}
+								<a href="/quizes/create/"><button type="submit" id="quizCreate" class="btn btn-primary fright">Создать</button></a>
+							{% endif %}
+							
+						{% endif %}
                     </div>
                 </div>
             </div>

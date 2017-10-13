@@ -17,52 +17,129 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h4 class="card-title">Категории тестов</h4>
-                        <table class="table"><tr>
-                            <th class='cat_id'>ID</th>
-                            <th class='cat_name'>Название</th>
-                            <th class='cat_access'>Доступ</th>
-                            <th class='cat_parent'>Одобрено</th>
-                            <th class='cat_access'>Удалить</th></tr>
+						
+						<!-- Список всех категорий для администраторов	-->
 
-                            {% for cat in cats %}
-                                <tr>
-                                <td>{{ cat.id }}</td>
+						{% if role == 2 %}
+							
+							<table class="table"><tr>
+								<th class='cat_id'>ID</th>
+								<th class='cat_name'>Название</th>
+								<th class='cat_access'>Доступ</th>
+								<th class='cat_parent'>Одобрено</th>
+								<th class='cat_access'>Удалить</th></tr>
 
-                                {%  if cat.approved != -1 %}
-                                    <td class='cat_level_{{ cat.level }}'><a href="/cats/edit/?id={{ cat.id }}">{{ cat.cat_name }}</td>
-                                {% else %}
-                                    <td class='cat_level_{{ cat.level }} cat_refused'><a href="/cats/edit/?id={{ cat.id }}">{{ cat.cat_name }}</td>
-                                {% endif %}
+								{% for cat in cats %}
+									<tr>
+									<td>{{ cat.id }}</td>
+	
+									{%  if cat.approved != -1 %}
+										<td class='cat_level_{{ cat.level }}'><a href="/cats/edit/?id={{ cat.id }}">{{ cat.cat_name }}</td>
+									{% else %}
+										<td class='cat_level_{{ cat.level }} cat_refused'><a href="/cats/edit/?id={{ cat.id }}">{{ cat.cat_name }}</td>
+									{% endif %}
+	
+									{%  if cat.approved != -1 %}
+										{%  if (cat.access) %}
+											<td class='cat_access cat_public'>public</td>
+										{% else %}
+											<td class='cat_access cat_private'>private</td>
+										{% endif %}
+									{% else %}
+										<td class='cat_access cat_private'>&mdash;</td>
+									{% endif %}
+	
+									{%  if cat.approved == 1 %}
+										<td class='cat_access cat_public'>Да</td>
+									{% elseif cat.approved == 0 %}
+										<td class='cat_access'>Ожидает одобрения</td>
+									{% else %}
+										<td class='cat_access cat_private'>Отклонено</td>
+									{% endif %}
+	
+									{%  if cat.no_delete == 0 %}
+									<td class='cat_access'><a href="/cats/delete/?id={{ cat.id }}" id="{{ cat.id }}">
+										<i class="fa fa-times-circle" aria-hidden="true"></i></a></td>
+									{% else %}
+									<td class='cat_access'><i class="fa fa-times-circle" aria-hidden="true"></i></td>
+									{% endif %}
+	
+									</tr>
+								{% endfor %}
+								    </table>
+									<a href="/cats/create/"><button type="submit" id="catCreate" class="btn btn-primary fright">Создать</button></a>
 
-                                {%  if cat.approved != -1 %}
-                                    {%  if (cat.access) %}
-                                        <td class='cat_access cat_public'>public</td>
-                                    {% else %}
-                                        <td class='cat_access cat_private'>private</td>
-                                    {% endif %}
-                                {% else %}
-                                    <td class='cat_access cat_private'>&mdash;</td>
-                                {% endif %}
+							{% else %}
+							
+						<!-- Приветствие, если пользователь ещё не создавал собственных категорий -->								
 
-                                {%  if cat.approved == 1 %}
-                                    <td class='cat_access cat_public'>Да</td>
-                                {% elseif cat.approved == 0 %}
-                                    <td class='cat_access'>Ожидает одобрения</td>
-                                {% else %}
-                                    <td class='cat_access cat_private'>Отклонено</td>
-                                {% endif %}
+								{%  if cats|length == 0 %}
+									<p>
+										В настоящий момент Вы можете размещать <a href="/quizes/">тесты</a> в уже имеющихся на сайте общедоступных категориях. К ним относятся все категории, кроме ветки "Частные категории".
+									</p>
+									<p>
+										Если Вам недостаточно общедоступных категорий, то в данном разделе Вы можете создать свою собственную ветку тестов, разбитых по категориям.
+									</p>
+									<p>
+										Для этого сперва необходимо создать корневую категорию, которая будет вложена в "Частные категории".
+									</p>
+									<p>
+										После этого в корневой категории Вы сможете создавать подкатегории тестов любого уровня вложенности.
+									</p>
+									<a href="/cats/create/"><button type="submit" id="catCreate" class="btn btn-primary fright">Создать корневую категорию</button></a>
+								{% else %}
+								
+						<!-- Список категорий, созданных зарегистрированными пользователями	-->								
 
-                                {%  if cat.no_delete == 0 %}
-                                <td class='cat_access'><a href="/cats/delete/?id={{ cat.id }}" id="{{ cat.id }}">
-                                    <i class="fa fa-times-circle" aria-hidden="true"></i></a></td>
-                                {% else %}
-                                <td class='cat_access'><i class="fa fa-times-circle" aria-hidden="true"></i></td>
-                                {% endif %}
+								<table class="table"><tr>
+									<th class='cat_id'>ID</th>
+									<th class='cat_name'>Название</th>
+									<th class='cat_access'>Доступ</th>
+									<th class='cat_parent'>Одобрено</th>
+									<th class='cat_access'>Удалить</th></tr>
 
-                                </tr>
-                            {% endfor %}
-                        </table>
-                        <a href="/cats/create/"><button type="submit" id="catCreate" class="btn btn-primary">Создать</button></a>
+									{% for cat in cats %}
+										<tr>
+										<td>{{ cat.id }}</td>
+		
+										{%  if cat.approved != -1 %}
+											<td class='cat_level_{{ cat.level - 1 }}'><a href="/cats/edit/?id={{ cat.id }}">{{ cat.cat_name }}</td>
+										{% else %}
+											<td class='cat_level_{{ cat.level - 1 }} cat_refused'><a href="/cats/edit/?id={{ cat.id }}">{{ cat.cat_name }}</td>
+										{% endif %}
+		
+										{%  if cat.approved != -1 %}
+											{%  if (cat.access) %}
+												<td class='cat_access cat_public'>public</td>
+											{% else %}
+												<td class='cat_access cat_private'>private</td>
+											{% endif %}
+										{% else %}
+											<td class='cat_access cat_private'>&mdash;</td>
+										{% endif %}
+		
+										{%  if cat.approved == 1 %}
+											<td class='cat_access cat_public'>Да</td>
+										{% elseif cat.approved == 0 %}
+											<td class='cat_access'>Ожидает одобрения</td>
+										{% else %}
+											<td class='cat_access cat_private'>Отклонено</td>
+										{% endif %}
+		
+										{%  if cat.no_delete == 0 %}
+										<td class='cat_access'><a href="/cats/delete/?id={{ cat.id }}" id="{{ cat.id }}">
+											<i class="fa fa-times-circle" aria-hidden="true"></i></a></td>
+										{% else %}
+										<td class='cat_access'><i class="fa fa-times-circle" aria-hidden="true"></i></td>
+										{% endif %}
+		
+										</tr>
+									{% endfor %}
+										</table>
+										<a href="/cats/create/"><button type="submit" id="catCreate" class="btn btn-primary fright">Создать</button></a>									
+								{% endif %}
+							{% endif %}
+
                     </div>
                 </div>
             </div>

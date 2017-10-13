@@ -44,13 +44,41 @@
 										<div class="form-group">
 											<label for="catName">Категория</label>
 											<select class="form-control" name="catName">
-											{% for cat in cats %}
-												{% if cat.id == quiz.cat %}
-													<option value="{{ cat.id }}" selected>{{ cat.cat_name }}</option>
-												{% else %}
-													<option value="{{ cat.id }}">{{ cat.cat_name }}</option>
+											
+												{% for cat in adminCats %}
+													{%  if cat.no_delete == 0 %}
+														{% if cat.id == quiz.cat %}
+															<option value="{{ cat.id }}" selected>{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% else %}
+															<option value="{{ cat.id }}">{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% endif %}
+													{% else %}
+														{% if cat.id == quiz.cat %}
+															<option value="{{ cat.id }}" selected>{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% else %}
+															<option value="{{ cat.id }}" disabled>{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+												{% if isAdmin == 0 %}
+														<option value="1" disabled>Частные категории</option>
 												{% endif %}
-											{% endfor %}
+												{% for cat in cats %}
+													{%  if cat.no_delete == 0 %}
+														{% if cat.id == quiz.cat %}
+															<option value="{{ cat.id }}" selected>{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% else %}
+															<option value="{{ cat.id }}">{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% endif %}
+													{% else %}
+														{% if cat.id == quiz.cat %}
+															<option value="{{ cat.id }}" selected>{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% else %}
+															<option value="{{ cat.id }}" disabled>{{ cat.prefix }} {{ cat.cat_name }}</option>
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+													
 											</select>
 										</div>
 									</div>
@@ -80,7 +108,7 @@
 												{% if quiz.hidden %}
 											<input type="text" class="form-control" name="newToken" value="http://gbtesting.com/quiz/?token={{quiz.hidden}}">
 												{% else %}
-											<input type="text" class="form-control" name="newToken" value="">
+											<input type="text" class="form-control" name="newToken" value="" disabled placeholder="Создаётся автоматически">
 												{% endif %}
 										</div>
 									</div>
@@ -214,7 +242,7 @@
 							</div>
 						</div>
 
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <button type="submit" class="btn btn-primary fright">Сохранить</button>
 						</form>
                     </div>
                 </div>

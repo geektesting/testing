@@ -2,51 +2,57 @@
 
 namespace App\Models;
 use App\Core\DB;
+use App\Models\User;
 
 /**
  * Class Quizes
  */
 class Quizes
 {
-    private static $_userId = 1;  // 1 - админ
 
     /**
      * По умолчанию возвращает список тестов для бекенда.
      * Администратор видит все тесты, пользователь - только свои.
      * С параметром "id" предназначена для отображения
      * на фронтенде тестов из категории с данным идентификатором.
-     * @param  string $isFront
+     * @param  int $id
      * @return array
      */
     static function quizList(int $id = 0) : array
     {
+        $user = (new User())->getCurrent();
         $result = [];
-        $sql = "SELECT q.id, q.user_id, q.name, q.status, q.hidden, q.cat as cat_id, cats.description AS description, cats.cat_name AS cat_name 
+        $sql = "SELECT q.id, q.user_id, q.name, q.status, q.hidden, q.description AS descript, q.cat as cat_id, cats.description AS description, cats.cat_name AS cat_name 
                                    FROM quizes q
                                    LEFT JOIN cats ON q.cat = cats.id";
 
         if ($id) {
                 $result = DB::getInstance()->fetchAll($sql . " WHERE q.cat = " . $id);
-        } else if (self::$_userId == 1) {
+        } else if ($user->getRole() == User::ADMINISTRATOR) {
                 $result = DB::getInstance()->fetchAll($sql);
         } else {
-                $result = DB::getInstance()->fetchAll($sql . " WHERE q.user_id = " . self::$_userId);
+                $result = DB::getInstance()->fetchAll($sql . " WHERE q.user_id = " . $user->getId());
         }
         return $result;
     }
 
     /**
      * Извлекает из базы информацию по конкретному тесту.
-     *
+     * Если её запрашивает пользователь, не являющийся автором теста и не админ,
+     * то возвращается пустой массив
      * @param int $quizId
      * @return array
      */
     public static function quizInfo(int $quizId) : array
     {
-        $result = DB::getInstance()->fetchOne("SELECT * FROM quizes WHERE id='$quizId'");
-        $settings = unserialize($result["settings"]);
-        array_pop($result);
-        return array_merge($result, $settings);
+        $user = (new User())->getCurrent();
+        $data = DB::getInstance()->fetchOne("SELECT * FROM quizes WHERE id='$quizId'");
+        $settings = unserialize($data["settings"]);
+        array_pop($data);
+        if ($user->getRole() != User::ADMINISTRATOR  && $user->getId() != $data["user_id"]) {
+            return [];
+        }
+        return array_merge($data, $settings);
     }
 
     
@@ -134,7 +140,8 @@ INC;
             $questions[$params["qCats"][$i]] = $params["qNumber"][$i];
         }
 
-        $userId = self::$_userId;
+        $user = (new User())->getCurrent();
+        $userId = $user->getId();
         $quizName = (string) $params["quizName"];
         $description = (string) $params["description"];
         $catName = (string) $params["catName"];

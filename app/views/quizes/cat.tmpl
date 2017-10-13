@@ -16,9 +16,13 @@
             <div class="col-lg-9 col-md-12 order-1 order-lg-2">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h4 class="card-title">{{ cat.cat_name }}</h4>
-
-						{{ cat.description }}<br><br>
+					
+                        {% for cat in cats %}
+							{% if cat.id == current %}
+								<h4 class="card-title">{{ cat.cat_name }}</h4>
+								{{ cat.description }}<br><br>
+							{% endif %}
+                        {% endfor %}
 						
                         <table class="table">
 							<tr>
@@ -28,7 +32,7 @@
 
                             {% for quiz in quizes %}
                                 <tr>
-                                    <td><a href="/quiz/?id={{ quiz.id }}">{{ quiz.name }}</a></td>
+                                    <td><a href="/quiz/?id={{ quiz.id }}&catid={{ current }}">{{ quiz.name }}</a></td>
                                     <td>{{ quiz.user_id }}</td>
                                 </tr>
                             {% endfor %}
