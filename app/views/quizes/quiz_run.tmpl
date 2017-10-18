@@ -1,45 +1,41 @@
 {% include "layouts/head.tmpl" %}
 {% include "layouts/header.tmpl" %}
 
-
 <main class="main">
     <div class="container">
         <div class="row">
 
             <div class="col-lg-3 order-3 order-lg-1">
                 {% if isAuth %}
-				
+
 				{% include "quizes/your_quizes.tmpl" %}
 
                 {% endif %}
-            </div>
-
-            <div class="col-lg-9 col-md-12 order-1 order-lg-2">
-                <div class="card mb-4">
-
-                    <div class="card-body">
-                        <h4 class="card-title">Создание категории</h4>
-		
-		<form action="/qcats/save/">
-			<div class="form-group">
-				<label for="cat_name">Название категории</label>
-				<input type="text" class="form-control" name="cat_name">
 			</div>
 			
-			<button type="submit" class="btn btn-primary fright">Сохранить</button>
-		</form>
-		
-                    </div>
+            <div class="col-lg-9 col-md-12 order-1 order-lg-2">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ quiz.name }}</h4>
+						<div id="qNumber"></div>
+
+						<input type="hidden" id="qId" value="{{quiz.id}}">
+
+						<div class="row">
+							<div class="col-lg-12 col-md-12 order-1" id="description">
+							</div>
+						</div>
+
+						<button type="submit" id="button" class="btn btn-primary fright" onClick="next();">Сохранить</button>
+
+					</div>
                 </div>
             </div>
-
-
         </div>
         <!-- /.row -->
     </div>
     <!-- /.container -->
 </main>
 <!-- /.main -->
-
 
 {% include "layouts/footer.tmpl" %}
