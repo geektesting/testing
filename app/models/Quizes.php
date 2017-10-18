@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use App\Core\DB;
-use App\Models\User;
+use App\Models\{User, Questions};
 
 /**
  * Class Quizes
@@ -39,23 +39,24 @@ class Quizes
     /**
      * Извлекает из базы информацию по конкретному тесту.
      * Если её запрашивает пользователь, не являющийся автором теста и не админ,
-     * то возвращается пустой массив
+     * то возвращается пустой массив. В остальных случаях или с параметром "all"
+     * возвращает полную информацию по тесту
      * @param int $quizId
+     * @param string $all
      * @return array
      */
-    public static function quizInfo(int $quizId) : array
+    public static function quizInfo(int $quizId, string $qBuild = "") : array
     {
         $user = (new User())->getCurrent();
         $data = DB::getInstance()->fetchOne("SELECT * FROM quizes WHERE id='$quizId'");
-        $settings = unserialize($data["settings"]);
-        array_pop($data);
-        if ($user->getRole() != User::ADMINISTRATOR  && $user->getId() != $data["user_id"]) {
+        if ($user->getRole() != User::ADMINISTRATOR && $user->getId() != $data["user_id"]) {
             return [];
+        } else if (!$qBuild || $qBuild == "all") {
+            $settings = unserialize($data["settings"]);
+            array_pop($data);
+            return array_merge($data, $settings);
         }
-        return array_merge($data, $settings);
     }
-
-    
     /**
      *  Добавляет блок полей выбора категории вопросов и их количества
      */
@@ -187,6 +188,30 @@ INC;
     {
         DB::getInstance()->execute("DELETE FROM quizes WHERE id ='$quizId'");
         header('Location: /quizes/');
+    }
+
+    /**
+     * Возвращает массив идентификаторов вопросов для теста
+     * @param int $quizId
+     */
+    public static function getQuestions(int $quizId)
+    {
+        $questions = [];
+        $quiz = self::quizInfo($quizId, "all");
+        foreach ($quiz["questions"] as $qCat=>$qNumber) {
+            if ($quiz["isRandom"]) {
+                $data = DB::getInstance()->fetchAll("SELECT id FROM questions WHERE qcat ='$qCat' ORDER BY RAND() LIMIT " . $qNumber);
+            }
+            else{
+                $data = DB::getInstance()->fetchAll("SELECT id FROM questions WHERE qcat ='$qCat' LIMIT " . $qNumber);
+            }
+            $questions = array_merge($data,$questions);
+        }
+
+        if ($quiz["isRandom"]){
+            shuffle($questions);
+        }
+        echo json_encode(array_values($questions));
     }
 }
   

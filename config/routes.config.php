@@ -92,6 +92,9 @@ $router->party('/questions', function() use ($router) {
  */
 $router->party('/quiz', function() use ($router) {
 	$router->get('/', 'Quiz@Index');
+	$router->get('/run', 'Quiz@Run');
+	$router->post('/questions', 'Quiz@Questions');
+	$router->post('/render', 'Quiz@Render');	
 });
 
 /**

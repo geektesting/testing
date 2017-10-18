@@ -49,7 +49,6 @@ class QuestionsController extends BaseController
      */
     public function actionSave()
     {
-        print_r($_POST);
         Questions::qSave($_POST);
     }
 

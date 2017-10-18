@@ -17,15 +17,25 @@
                 <div class="card mb-4">
                     <div class="card-body">
 					
+					<form action="/quiz/run/?quizId={{ quiz.id }}">
+					
                         {% for quiz in quizes %}
 							{% if quiz.id == current %}
+								<input type="hidden" name="quizId" value="{{ quiz.id }}">
 								<h4 class="card-title">{{ quiz.name }}</h4>
 								{{ quiz.descript }}<br><br>
 							{% endif %}
                         {% endfor %}					
+
+						{% if isAuth %}
+							<button class="btn btn-primary fleft">Начать тест</button>
+						{% else %}
+							<p>Для прохождения теста необходимо <a href="/auth/">войти на сайт</a></p>
+						{% endif %}
 						
-						<button class="btn btn-primary">Начать тест</button>
-						<button class="btn btn-primary fright" onClick="history.back()">Назад</button>
+					</form>
+					
+							<button class="btn btn-primary fright" onClick="history.back()">Назад</button>
                     </div>
                 </div>
             </div>

@@ -178,7 +178,6 @@ class Cats
             }
             next($cats);
         }
-        print_r($result);
 
         if ($parent) {
             if (count($cats) > 1){

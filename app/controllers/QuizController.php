@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\Quizes;
+use App\Models\{Quizes, Questions};
 
 /**
  * Class QuizController
@@ -16,8 +16,34 @@ class QuizController extends BaseController
     public function actionIndex()
     {
 		$this->render("quizes/quiz", [
-            "quizes" => Quizes::quizList($_GET["catid"]),
+            "quizes" => Quizes::quizList((int) $_GET["catid"]),
             "current" => $_GET["id"]
         ]);
+    }
+
+    /**
+     * ActionRun
+     */
+    public function actionRun()
+    {
+        $this->render("quizes/quiz_run", [
+            "quiz" => Quizes::quizInfo((int) $_GET["quizId"],"all")
+        ]);
+    }
+
+    /**
+     * ActionNext
+     */
+    public function actionRender()
+    {
+       echo Questions::qRender($_POST);
+    }
+
+    /**
+     * ActionBuild
+     */
+    public function actionQuestions()
+    {
+        Quizes::getQuestions((int) $_POST["quizId"]);
     }
 }
