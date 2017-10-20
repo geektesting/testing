@@ -27,13 +27,20 @@
                         <table class="table">
 							<tr>
 								<th class='cat_name'>Тесты в этой категории</th>
+								<th class='cat_name'>Доступ</th>
 								<th>Автор</th>
 							</tr>
 
                             {% for quiz in quizes %}
                                 <tr>
-                                    <td><a href="/quiz/?id={{ quiz.id }}&catid={{ current }}">{{ quiz.name }}</a></td>
-                                    <td>{{ quiz.user_id }}</td>
+								{% if quiz.hidden %}
+									<td>{{ quiz.name }}</td>
+									<td>Тест по ссылке</td>
+								{% else %}
+									<td><a href="/quiz/?id={{ quiz.id }}&catid={{ current }}">{{ quiz.name }}</a></td>
+									<td>Общедоступный тест</td>
+								{% endif %}
+                                    <td>{{ quiz.user_id }} </td>
                                 </tr>
                             {% endfor %}
 							

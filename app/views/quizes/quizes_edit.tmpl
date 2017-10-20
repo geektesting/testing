@@ -103,12 +103,13 @@
 
 									<div class="col-lg-6 col-md-6 order-2">
 										<div class="form-group">
-											<label for="newToken">Ссылка на тест</label>
 											<input type="hidden" name="token" value="{{quiz.hidden}}">
 												{% if quiz.hidden %}
-											<input type="text" class="form-control" name="newToken" value="http://gbtesting.com/quiz/?token={{quiz.hidden}}">
+													<label for="newToken">&nbsp;</label>
+													<div><a href="/quiz/?id={{ quiz.id }}&catid={{ quiz.cat }}&token={{ quiz.hidden }}">Ссылка на закрытый тест</a></div>
 												{% else %}
-											<input type="text" class="form-control" name="newToken" value="" disabled placeholder="Создаётся автоматически">
+													<label for="newToken">Ссылка на закрытый тест</label>
+													<input type="text" class="form-control" name="newToken" value="" disabled placeholder="Создаётся автоматически">
 												{% endif %}
 										</div>
 									</div>
