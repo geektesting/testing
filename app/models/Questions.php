@@ -78,7 +78,7 @@ class Questions
         if ($postdata["next"]) {
 
             $next = self::qInfo($postdata["next"]);
-            $output = nl2br($next["description"]) . "<hr>";
+            $output = nl2br(htmlentities($next["description"])) . "<hr>";
 
             if (isset($_SESSION["current"])) {
                 $current = self::qInfo($_SESSION["current"]);

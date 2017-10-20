@@ -15,9 +15,14 @@ class QuizController extends BaseController
      */
     public function actionIndex()
     {
+        $token = "";
+        if (isset($_GET["token"])) {
+            $token = $_GET["token"];
+        }
 		$this->render("quizes/quiz", [
             "quizes" => Quizes::quizList((int) $_GET["catid"]),
-            "current" => $_GET["id"]
+            "current" => $_GET["id"],
+            "token" => $token
         ]);
     }
 
