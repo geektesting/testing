@@ -37,18 +37,23 @@ class AccountController extends BaseController
             return;
         }
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['login']) && isset($_POST['pass'])
-            && preg_match('/^[A-z0-9-_]{3,}$/',$_POST['login']) && strlen($_POST['pass']) > 5) {
-            if (User::register($_POST['login'], $_POST['pass']) && (new Auth())->login($_POST['login'], $_POST['pass'])) {
-                App::getInstance()->redirect('account');
-                return;
-            }
-
-            // ToDo: Надо показывать ошибки
+        $message = "";
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['e_mail'])
+                && preg_match('/^[A-z0-9-_]{3,}$/', $_POST['login']) && strlen($_POST['pass']) > 5
+                && preg_match('/^[A-z0-9A-z._%+-]+@[A-z0-9.-]+\.[A-z]{2,64}$/', $_POST['e_mail'])) {
+                if (User::register($_POST['login'], $_POST['pass'], $_POST['e_mail']) && (new Auth())->login($_POST['login'], $_POST['pass'])) {
+                    App::getInstance()->redirect('account');
+                    return;
+                } else
+                    $message = "Регистрация не удалась. Возможно пользователь с таким логином или почтой уже существует.";
+            } else
+                $message = "Неверные данные. Проверьте корректность заполнения полей.";
         }
 
         $this->render("account/register", [
-            "title" => "Register user"
+            "title" => "Register user",
+            "error" => $message
         ]);
     }
 }

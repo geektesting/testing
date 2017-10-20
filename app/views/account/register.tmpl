@@ -9,6 +9,9 @@
                             <h1 class="card-title text-center">Регистрация</h1>
                              <div class="d-flex container">
                                 <form action="/account/register" class="m-auto" method="post">
+                                    {% if error %}<div class="row justify-content-center">
+                                        <p class="">{{ error }}</p>
+                                    </div>{% endif %}
                                     <div class="row justify-content-center">
                                         <label for="">Введите логин</label>
                                     </div>

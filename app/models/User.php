@@ -18,6 +18,7 @@ class User
 
     protected $id;
     protected $login;
+    protected $email;
     protected $password;
 	protected $role;
 
@@ -43,6 +44,14 @@ class User
     public function getLogin()
     {
         return $this->login;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -72,17 +81,20 @@ class User
     /**
      * @param string $login
      * @param string $pass
+     * @param string $email
      * @return bool
      */
-    public static function register(string $login, string $pass) : bool
+    public static function register(string $login, string $pass, string $email) : bool
     {
         $userRep = new UserRep();
         $user = $userRep->getByLogin($login);
-
-        if ($user) {
+        if ($user)
             return false;
-        }
 
-        return $userRep->create($login, $pass);
+        $user = $userRep->getByEmail($email);
+        if ($user)
+            return false;
+
+        return $userRep->create($login, $pass, $email);
     }
 }

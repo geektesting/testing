@@ -51,6 +51,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` int(11) NOT NULL DEFAULT '0',
   `login` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -62,7 +63,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,0,'test','202cb962ac59075b964b07152d234b70'),(2,4,'testing','ae2b1fca515949e5d54fb22b8ed95575');
+INSERT INTO `users` VALUES (1,0,'test','test@test.ru','202cb962ac59075b964b07152d234b70'),(2,4,'testing','testing@test.ru','ae2b1fca515949e5d54fb22b8ed95575');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

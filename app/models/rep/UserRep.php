@@ -25,6 +25,18 @@ class UserRep extends AbstractRep
     }
 
     /**
+     * @param string $email
+     * @return User
+     */
+    public function getByEmail(string $email)
+    {
+        return $this->db->fetchObject(
+            "SELECT u.* FROM users u
+             WHERE email = ?", [$email], $this->nestedClass
+        );
+    }
+
+    /**
      * @param string $login
      * @param string $pass
      * @return User
@@ -51,12 +63,13 @@ class UserRep extends AbstractRep
     /**
      * @param string $login
      * @param string $pass
+     * @param string $email
      * @return bool
      */
-    public function create(string $login, string $pass) : bool
+    public function create(string $login, string $pass, string $email) : bool
     {
         return $this->db->execute(
-            "INSERT INTO users (login, password) values(?, ?)", [$login, md5($pass)]
+            "INSERT INTO users (login, password, email) values(?, ?, ?)", [$login, md5($pass), $email]
         );
     }
 }
