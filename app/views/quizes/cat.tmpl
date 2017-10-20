@@ -32,16 +32,18 @@
 							</tr>
 
                             {% for quiz in quizes %}
-                                <tr>
-								{% if quiz.hidden %}
-									<td>{{ quiz.name }}</td>
-									<td>Тест по ссылке</td>
-								{% else %}
-									<td><a href="/quiz/?id={{ quiz.id }}&catid={{ current }}">{{ quiz.name }}</a></td>
-									<td>Общедоступный тест</td>
+								{% if quiz.status == 1 %}
+									<tr>
+									{% if quiz.hidden %}
+										<td>{{ quiz.name }}</td>
+										<td>Тест по ссылке</td>
+									{% else %}
+										<td><a href="/quiz/?id={{ quiz.id }}&catid={{ current }}">{{ quiz.name }}</a></td>
+										<td>Общедоступный тест</td>
+									{% endif %}
+										<td>{{ quiz.user_id }} </td>
+									</tr>
 								{% endif %}
-                                    <td>{{ quiz.user_id }} </td>
-                                </tr>
                             {% endfor %}
 							
                         </table>

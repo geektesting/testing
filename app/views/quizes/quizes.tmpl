@@ -35,7 +35,7 @@
                                 {%  if quiz.status %}
                                         <td class='cat_access cat_public'>public</td>
                                 {% else %}
-                                        <td class='cat_access cat_private'>private</td>
+                                        <td class='cat_access cat_private'>hidden</td>
                                 {% endif %}
 
                                 <td class='cat_access'><a href="/quizes/delete/?id={{ quiz.id }}" id="{{ quiz.id }}">
