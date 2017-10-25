@@ -10,21 +10,16 @@ $I->see('Создать');
 $I->click('Создать');
 $I->see('Новый вопрос');
 
-$I->selectOption('qCats', '4');
-$I->selectOption('qType', '2');
-$I->fillField('description', 'test');
-$I->fillField('answers[]', 'test');
-$I->selectOption('rightAnswer', '1');
 
-$I->click('Сохранить');
+$I->submitForm('#save-question', array('qCats' => '4',
+     'qType' => '2',
+     'description' => 'test',
+     'answers[]' => 'test',
+     'rightAnswer' => '1',
+     'submitButton' => 'Сохранить'
+));
 
-$I->seeCurrentUrlEquals('/questions\/');
+// $I->click('Сохранить');
+
+$I->seeCurrentUrlEquals('/questions');
 $I->see('test');
-$I->click('test');
-
-$I->canSeeInField('description', 'test');
-$I->fillField('description', 'test2');
-$I->click('Сохранить');
-
-$I->seeCurrentUrlEquals('/questions\/');
-$I->see('test2');
