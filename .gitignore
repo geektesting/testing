@@ -4,3 +4,4 @@ vendor/
 .vscode
 .idea/
 .env
+tests/_output

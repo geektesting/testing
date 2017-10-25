@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantToTest('Questions page integration');
+$I->wantToTest("Question's category page integration");
 
 require(__DIR__ . '/../../_support/loginAction.php');
 

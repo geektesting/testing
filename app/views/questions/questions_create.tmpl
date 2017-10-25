@@ -1,94 +1,89 @@
-{% include "layouts/head.tmpl" %}
-{% include "layouts/header.tmpl" %}
+{% include "layouts/head.tmpl" %} {% include "layouts/header.tmpl" %}
 
 <main class="main">
     <div class="container">
         <div class="row">
 
             <div class="col-lg-3 order-3 order-lg-1">
-                {% if isAuth %}
-				
-				{% include "quizes/your_quizes.tmpl" %}
-
-                {% endif %}
-			</div>
+                {% if isAuth %} {% include "quizes/your_quizes.tmpl" %} {% endif %}
+            </div>
 
             <div class="col-lg-9 col-md-12 order-1 order-lg-2">
                 <div class="card mb-4">
                     <div class="card-body">
                         <h4 class="card-title">Новый вопрос</h4>
-						<form action="/questions/save/" method="POST">
-							
-								<div class="row">
-								
-									<div class="col-lg-5 col-md-5 order-1">
-										<div class="form-group">
-											<label for="qCats">Категория вопросов</label>
-											<select class="form-control" name="qCats">
+                        <form id="save-question" action="/questions/save/" method="POST">
+
+                            <div class="row">
+
+                                <div class="col-lg-5 col-md-5 order-1">
+                                    <div class="form-group">
+                                        <label for="qCats">Категория вопросов</label>
+                                        <select class="form-control" name="qCats">
 													<option value="" selected disabled></option>
 												{% for cat in qcats %}
 													<option value="{{ cat.id }}">{{ cat.cat_name }}</option>					
 												{% endfor %}
 											</select>
-										</div>
-									</div>
+                                    </div>
+                                </div>
 
-									<div class="col-lg-5 col-md-5 order-2">
-										<div class="form-group">
-											<label for="qType">Тип вопроса</label>
-											<select class="form-control" id="qType" name="qType" onChange="toggleAnswer(this)">
+                                <div class="col-lg-5 col-md-5 order-2">
+                                    <div class="form-group">
+                                        <label for="qType">Тип вопроса</label>
+                                        <select class="form-control" id="qType" name="qType" onChange="toggleAnswer(this)">
 												{% for qtype in qtypes %}
 													<option value="{{ qtype.id }}">{{ qtype.description }}</option>					
 												{% endfor %}
 											</select>
-										</div>
-									</div>
-									
-									<div class="col-lg-2 col-md-2 order-3">
-										<div class="form-group">
-											<label for="point">Баллы</label>
-											<input type="text" class="form-control" name="point" value="1.00">
-										</div>
-									</div>
-									
-								</div>
+                                    </div>
+                                </div>
 
-								<div class="form-group">
-									<label for="description">Описание вопроса</label>
-									<textarea class="form-control" name="description" rows="10" value=""></textarea>
-								</div>
-								<div class="answerLabel">Варианты ответа</div>
-								
-									<div class="row answers" id="r1">
-									
-										<div class="col-lg-1 col-md-1 order-1">
-											<div class="answerId">
-													1
-											</div>
-										</div>
-	
-										<div class="col-lg-1 col-md-1 order-2">
-											<div class="answerRadio">
-													<label class="btn btn-primary">
+                                <div class="col-lg-2 col-md-2 order-3">
+                                    <div class="form-group">
+                                        <label for="point">Баллы</label>
+                                        <input type="text" class="form-control" name="point" value="1.00">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Описание вопроса</label>
+                                <textarea class="form-control" name="description" rows="10" value=""></textarea>
+                            </div>
+                            <div class="answerLabel">Варианты ответа</div>
+
+                            <div class="row answers" id="r1">
+
+                                <div class="col-lg-1 col-md-1 order-1">
+                                    <div class="answerId">
+                                        1
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-1 col-md-1 order-2">
+                                    <div class="answerRadio">
+                                        <label class="btn btn-primary">
 														<input type="radio" name="rightAnswer" value="1">
-													</label>	
-											</div>
-										</div>
-										
-										<div class="col-lg-10 col-md-10 order-3">
-											<div class="answerDesc">
-												<div class="form-group">
-													<textarea class="form-control" name="answers[]" rows="2" value=""></textarea>
-												</div>
-											</div>
-											<div class="answerToggle">
-												<a href="javascript:void(0)" onClick="addAnswer()"><i class="fa fa-plus" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-								
-							<button type="submit" class="btn btn-primary fright">Сохранить</button>
-						</form>
+													</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-10 col-md-10 order-3">
+                                    <div class="answerDesc">
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="answers[]" rows="2" value=""></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="answerToggle">
+                                        <a href="javascript:void(0)" onClick="addAnswer()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary fright">Сохранить</button>
+                        </form>
                     </div>
                 </div>
             </div>

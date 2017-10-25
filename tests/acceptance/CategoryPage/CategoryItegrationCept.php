@@ -11,7 +11,7 @@ $I->click('Создать');
 $I->see('Создание категории');
 
 $I->fillField('catName', 'testName');
-$I->selectOption('parent', 'JavaScript');
+$I->selectOption('parent', '10');
 $I->click('Сохранить');
 
 $I->seeCurrentUrlEquals('/cats');
@@ -21,7 +21,7 @@ $I->click('testName');
 
 $I->canSeeInField('catName', 'testName');
 $I->fillField('catName', 'testName2');
-$I->selectOption('parent', 'PHP');
+$I->selectOption('parent', '11');
 $I->click('Сохранить');
 
 $I->seeCurrentUrlEquals('/cats');
