@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantToTest('first page');
+$I->wantToTest('First page');
 $I->amOnPage('/');
 
 $I->see('GEEKTEST');

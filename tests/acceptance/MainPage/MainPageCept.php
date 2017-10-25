@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantToTest('main page');
+$I->wantToTest('Main page');
 
 require(__DIR__ . '/../../_support/loginAction.php');
 
