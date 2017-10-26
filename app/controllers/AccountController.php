@@ -18,10 +18,12 @@ class AccountController extends BaseController
     public function actionIndex()
     {
         if ($user = (new User())->getCurrent()) {
-            $this->render("account/index", [
+            App::getInstance()->redirect(); // ToDo: account
+            return;
+            /*$this->render("account/index", [
                 "title" => "Account page",
                 "user" => $user
-            ]);
+            ]);*/
         } else {
             App::getInstance()->redirect('auth');
         }
@@ -33,7 +35,7 @@ class AccountController extends BaseController
     public function actionRegister()
     {
         if ($this->isAuth()) {
-            App::getInstance()->redirect('account');
+            App::getInstance()->redirect(); // ToDo: account
             return;
         }
 
@@ -43,7 +45,7 @@ class AccountController extends BaseController
                 && preg_match('/^[A-z0-9-_]{3,}$/', $_POST['login']) && strlen($_POST['pass']) > 5
                 && preg_match('/^[A-z0-9A-z._%+-]+@[A-z0-9.-]+\.[A-z]{2,64}$/', $_POST['e_mail'])) {
                 if (User::register($_POST['login'], $_POST['pass'], $_POST['e_mail']) && (new Auth())->login($_POST['login'], $_POST['pass'])) {
-                    App::getInstance()->redirect('account');
+                    App::getInstance()->redirect(); // ToDo: account
                     return;
                 } else
                     $message = "Регистрация не удалась. Возможно пользователь с таким логином или почтой уже существует.";

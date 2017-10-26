@@ -17,7 +17,7 @@ class AuthController extends BaseController
     public function actionIndex()
     {
         if ($this->isAuth()) {
-            App::getInstance()->redirect('account');
+            App::getInstance()->redirect(); // ToDo: account
             return;
         }
 
@@ -33,14 +33,14 @@ class AuthController extends BaseController
     public function actionLogin()
     {
         if ($this->isAuth()) {
-            App::getInstance()->redirect('account');
+            App::getInstance()->redirect(); // ToDo: account
             return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['login'])) {
 
             if ((new Auth())->login($_POST['login'], $_POST['pass'])) {
-                App::getInstance()->redirect('account');
+                App::getInstance()->redirect(); // ToDo: account
                 return;
             }
         }

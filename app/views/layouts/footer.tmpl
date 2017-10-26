@@ -24,11 +24,11 @@
                     <h3>Navigation</h3>
                     <nav class="nav flex-column">
                         <a class="nav-link-green-block" href="/">Главная</a>
-                        <a class="nav-link-green-block" href="#">О проекте</a>
+                        <!--<a class="nav-link-green-block" href="#">О проекте</a>-->
                     {% if isAuth %}
-                        <a class="nav-link-green-block" href="#">Личный кабинет</a>
+                        <!--<a class="nav-link-green-block" href="/account/">Личный кабинет</a>//-->
                     {% else %}
-                        <a class="nav-link-green-block" href="#">Регистрация</a>
+                        <a class="nav-link-green-block" href="/account/register">Регистрация</a>
                     {% endif %}
                     </nav>
                 </div>

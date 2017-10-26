@@ -9,6 +9,15 @@
 				
 				{% include "quizes/your_quizes.tmpl" %}
 
+                {% else %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title">Авторизация</h4>
+                            <a class="nav-link-green-block" href="/account/register">Регистрация</a>
+                            <a class="nav-link-green-block" href="/auth">Войти</a>
+                        </div>
+                    </div>
+
                 {% endif %}
 <!--
                     <div class="card mb-4">
@@ -20,7 +29,7 @@
                             <a class="nav-link-green-block" href="#">Физика</a>
                         </div>
                     </div>
--->
+
                     <h3>Subscribe</h3>
                     <div class="block">
                         <form method="post" action="/">
@@ -31,7 +40,7 @@
                             <button type="submit" class="btn btn-success btn-block">Subscribe</button>
                         </form>
                     </div>
-                
+-->
             </div>
 
             <div class="col-lg-6 col-md-8 order-1 order-lg-2">
