@@ -10,4 +10,4 @@ $I->fillField('pass', 'testing');
 $I->fillField('pass2', 'testing');
 $I->click('Вход');
 
-$I->seeCurrentUrlEquals('/account');
+$I->seeCurrentUrlEquals('/');
